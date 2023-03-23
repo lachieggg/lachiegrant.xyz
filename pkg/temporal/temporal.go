@@ -2,7 +2,6 @@ package temporal
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/stretchr/testify/suite"
@@ -32,28 +31,28 @@ func (s *UnitTestSuite) AfterTest(suiteName, testName string) {
 }
 
 func (s *UnitTestSuite) Test_SimpleWorkflow_Success() {
-	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Value: "value", Status: testsuccess})
+	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Status: testsuccess})
 
 	s.True(s.Env.IsWorkflowCompleted())
 	s.NoError(s.Env.GetWorkflowError())
 }
 
 func (s *UnitTestSuite) Test_SimpleWorkflow_ActivityParamCorrect() {
-	s.Env.OnActivity(SimpleActivity, Args{Value: "value", Status: testsuccess}).Return(
+	s.Env.OnActivity(SimpleActivity, Args{Status: testsuccess}).Return(
 		func(args Args) error {
 			s.Equal("test_success", args.Status)
 			return nil
 		})
-	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Value: "value", Status: testsuccess})
+	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Status: testsuccess})
 
 	s.True(s.Env.IsWorkflowCompleted())
 	s.NoError(s.Env.GetWorkflowError())
 }
 
 func (s *UnitTestSuite) Test_SimpleWorkflow_ActivityFails() {
-	s.Env.OnActivity(SimpleActivity, Args{Value: "value", Status: testfailure}).Return(
+	s.Env.OnActivity(SimpleActivity, Args{Status: testfailure}).Return(
 		errors.New("SimpleActivityFailure"))
-	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Value: "value", Status: testfailure})
+	s.Env.ExecuteWorkflow(SimpleWorkflow, Args{Status: testfailure})
 	s.True(s.Env.IsWorkflowCompleted())
 
 	err := s.Env.GetWorkflowError()
@@ -65,7 +64,6 @@ func (s *UnitTestSuite) Test_SimpleWorkflow_ActivityFails() {
 
 // Args
 type Args struct {
-	Value  string
 	Status string
 }
 
@@ -93,11 +91,5 @@ func SimpleWorkflow(ctx workflow.Context, args Args) error {
 
 // SimpleActivity
 func SimpleActivity(args Args) error {
-	if args.Status == testsuccess {
-		return nil
-	}
-	if args.Status == testfailure {
-		return fmt.Errorf("SimpleActivityFailure")
-	}
 	return nil
 }
