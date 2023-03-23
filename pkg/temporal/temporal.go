@@ -40,7 +40,7 @@ func (s *UnitTestSuite) Test_SimpleWorkflow_Success() {
 
 func (s *UnitTestSuite) Test_SimpleWorkflow_ActivityParamCorrect() {
 	s.Env.OnActivity(SimpleActivity, Args{Value: "value", Status: testsuccess}).Return(
-		func(ctx workflow.Context, args Args) error {
+		func(args Args) error {
 			s.Equal("test_success", args.Status)
 			return nil
 		})
