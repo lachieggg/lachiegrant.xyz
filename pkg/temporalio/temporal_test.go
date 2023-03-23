@@ -1,4 +1,4 @@
-package temporal
+package temporalio
 
 import (
 	"testing"
