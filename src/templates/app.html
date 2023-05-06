@@ -11,9 +11,9 @@
     </head>
     <body>
 
-        {{ include "templates/partials/navigation.html" }}
+        {{ template "navigation.html" }}
         <div class="container">
-          {{ include "templates/partials/flash.html" }}
+          {{ template "flash.html" }}
           {{ block "content" . }}{{ end }}    
         </div>
 

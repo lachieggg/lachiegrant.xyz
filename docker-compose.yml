@@ -2,11 +2,18 @@ version: "3"
 
 services:
   app:
-    image: app
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: app
-    build: .
+    image: app
     networks:
       - net
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    
+
 
   nginx:
     image: nginx

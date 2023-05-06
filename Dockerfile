@@ -5,8 +5,4 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY src/ .
-
-RUN go build -o app .
-
-CMD ["./app"]
+CMD ["./scripts/start.sh"]
