@@ -75,7 +75,13 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, World!")
 }
 
+// Env
+func Env(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, os.Getenv("GITHUB_URL"))
+}
+
 // githubHandler
 func githubHandler(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://github.com/lachieggg", http.StatusSeeOther)
+	http.Redirect(w, r, os.Getenv("GITHUB_URL"), http.StatusSeeOther)
 }
