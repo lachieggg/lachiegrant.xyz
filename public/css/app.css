@@ -3,6 +3,10 @@
 body {
   padding: 100px;
   text-align: center;
+  background: lightblue
+}
+
+.index-body {
   background: lightblue;
 }
 
