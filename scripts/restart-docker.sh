@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 docker stop app
 docker start app
