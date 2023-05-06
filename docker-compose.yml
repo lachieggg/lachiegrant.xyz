@@ -13,8 +13,6 @@ services:
     volumes:
       - .:/app
     
-
-
   nginx:
     image: nginx
     container_name: webserver
@@ -22,6 +20,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./public:/etc/nginx/html/public
     depends_on:
       - app
     networks:
