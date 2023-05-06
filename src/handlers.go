@@ -45,33 +45,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 			return buf.String(), nil
 		},
 	})
-
-	templatePath = filepath.Join(wd, templateFolder, "app.html")
-
-	// parse and execute the main template
-	t, err = t.ParseFiles(templatePath)
-
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// define the data for the template
-	data := struct {
-		Title   string
-		Header  string
-		Content string
-	}{
-		Title:   "My Website",
-		Header:  "Welcome to my website!",
-		Content: "Thanks for visiting!",
-	}
-
-	// execute the main template with the data
-	if err := t.Execute(w, data); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 }
 
 func filesHandler(w http.ResponseWriter, r *http.Request) {
