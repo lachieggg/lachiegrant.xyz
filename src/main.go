@@ -12,7 +12,7 @@ func main() {
 	http.HandleFunc("/github", githubHandler)
 	http.HandleFunc("/env", Env)
 
-	loadenv.LoadEnv("../.env")
+	loadenv.LoadEnv(".env")
 
 	http.ListenAndServe(":9000", nil)
 }

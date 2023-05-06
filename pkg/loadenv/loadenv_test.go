@@ -1,7 +1,6 @@
 package loadenv
 
 import (
-	"io"
 	"os"
 	"testing"
 
