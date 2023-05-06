@@ -5,16 +5,11 @@ import (
 	"net/http"
 )
 
-// Home
-func Home(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello, World!")
-}
-
+// main
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			Home(w, r)
+			indexHandler(w, r)
 		} else {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			fmt.Fprintf(w, "Only GET requests are allowed")

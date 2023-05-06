@@ -7,6 +7,6 @@ RUN go mod download
 
 COPY src/ .
 
-RUN go build -o goservice .
+RUN go build -o app .
 
-CMD ["./goservice"]
+CMD ["./app"]

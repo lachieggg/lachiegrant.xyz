@@ -1,22 +1,25 @@
 version: "3"  
 
 services:
-  goservice:
+  app:
+    image: app
+    container_name: app
     build: .
     networks:
-      - servicenetwork
+      - net
 
   nginx:
     image: nginx
+    container_name: webserver
     ports:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - goservice
+      - app
     networks:
-      - servicenetwork
+      - net
 
 networks:
-  servicenetwork:
+  net:
     driver: bridge
