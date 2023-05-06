@@ -74,3 +74,8 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Hello, World!")
 }
+
+// githubHandler
+func githubHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://github.com/lachieggg", http.StatusSeeOther)
+}
