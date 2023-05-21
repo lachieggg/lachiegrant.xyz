@@ -11,6 +11,6 @@ module.exports = {
         path: path.resolve(__dirname, 'public/js/generated'),
     },
     plugins: [
-    new Dotenv()
+        new Dotenv()
     ]
 };
