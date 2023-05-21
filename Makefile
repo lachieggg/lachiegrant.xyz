@@ -11,7 +11,7 @@ webpack:
 
 .PHONY: docker
 docker: webpack
-	docker-compose up --build -d
+	docker-compose up --build
 
 .PHONY: clean
 clean:

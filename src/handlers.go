@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"io"
+	"mime"
+	"log"
 )
 
 // indexHandler
@@ -47,6 +50,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// filesHandler
 func filesHandler(w http.ResponseWriter, r *http.Request) {
 	files, err := os.ReadDir("/")
 	if err != nil {
@@ -69,6 +73,62 @@ func filesHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s", wd)
 }
 
+// blogHandler handles the /blog route and specific files within /blog
+func blogHandler(w http.ResponseWriter, r *http.Request) {
+	// Extract the requested file name from the URL path
+	fileName := filepath.Base(r.URL.Path)
+	log.Printf("Received request for file: %s", fileName)
+
+	if fileName == "blog" {
+		writeFile(w, "./public/blog/blog.html")
+		return
+	}
+
+	// Construct the file path based on the requested file name
+	filePath := filepath.Join("./public/blog/", fileName)
+
+	log.Printf("Full file path: %s", filePath)
+
+	// Check if the file exists
+	_, err := os.Stat(filePath)
+	if os.IsNotExist(err) {
+		log.Printf("File not found: %s", filePath)
+		http.NotFound(w, r)
+		return
+	} else if err != nil {
+		log.Printf("Failed to check file existence: %v", err)
+		http.Error(w, fmt.Sprintf("Failed to check file existence: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	writeFile(w, filePath)
+
+
+}
+
+// writeFile
+func writeFile(w http.ResponseWriter, path string) {
+	// Open the file
+	file, err := os.Open(path)
+	if err != nil {
+		log.Printf("Failed to open file: %v", err)
+		http.Error(w, fmt.Sprintf("Failed to open file: %v", err), http.StatusInternalServerError)
+		return
+	}
+	defer file.Close()
+
+	// Set the Content-Type header based on the file extension
+	contentType := mime.TypeByExtension(filepath.Ext(path))
+	w.Header().Set("Content-Type", contentType)
+
+	// Copy the file contents to the response writer
+	_, err = io.Copy(w, file)
+	if err != nil {
+		log.Printf("Failed to write file content to response: %v", err)
+		http.Error(w, fmt.Sprintf("Failed to write file content to response: %v", err), http.StatusInternalServerError)
+		return
+	}
+}
 // Home
 func Home(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
