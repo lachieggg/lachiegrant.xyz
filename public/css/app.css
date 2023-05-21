@@ -22,7 +22,7 @@ body {
   margin-right: auto;
 }
 
-.my-slider-images {
+.img {
   border-radius: 20px;
   max-height: 600px;
 }
@@ -58,7 +58,7 @@ body {
 
 @media (max-width: 720px)
 {
-  .my-slider-images {
+  .img {
     display: none;
   }
 }
@@ -84,7 +84,7 @@ body {
     display: none !important;
   }
 
-  .my-slider-images {
+  .img {
     border-radius: 20px;
     max-width: 50%;
     max-height: 50%;

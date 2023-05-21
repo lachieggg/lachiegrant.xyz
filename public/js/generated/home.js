@@ -1,1 +1,1 @@
-(()=>{var t="MISSING_ENV_VAR".IMAGES_URL+"images/"+"MISSING_ENV_VAR".PICTURES.split(",")[0];!function(){try{document.getElementById("home-img").src=t}catch(t){}}()})();
+(()=>{var t="https://lachie-website.s3.ap-southeast-2.amazonaws.com/images/"+"wtc.jpg".split(",")[0];!function(){try{document.getElementById("home-img").src=t}catch(t){}}()})();
