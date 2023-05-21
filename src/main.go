@@ -15,7 +15,7 @@ func main() {
 
 	// Define routes
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/github", githubHandler)
+	http.HandleFunc("/code", githubHandler)
 	http.HandleFunc("/status", statusHandler)
 	// Blog
 	http.HandleFunc("/blog", blogHandler)
