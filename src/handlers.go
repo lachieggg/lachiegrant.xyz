@@ -36,6 +36,15 @@ func parseTemplates(w http.ResponseWriter) *template.Template {
 
 // indexHandler
 func indexHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+	} else {
+		homeHandler(w, r)
+	}
+}
+
+// homeHandler
+func homeHandler(w http.ResponseWriter, r *http.Request) {
 	t := parseTemplates(w)
 	if t == nil {
 		return 
