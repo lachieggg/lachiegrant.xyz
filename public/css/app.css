@@ -42,10 +42,6 @@ body {
   vertical-align: top;
 }
 
-.login-button {
-  display: none !important;
-}
-
 @media (max-width: 720px)
 {
   .img {
@@ -69,6 +65,13 @@ body {
     align-self: center;
     max-height: none;
   }
+
+  .home-img {
+    border-radius: 20px;
+    align-self: center;
+    align-items: center;
+  }
+  
 
   .navbar .navbar-nav {
     font-size: 40px;
