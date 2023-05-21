@@ -41,6 +41,7 @@ body {
   /* float: none; */
   /* vertical-align: top; */
   /* align-items: center; */
+  justify-content: center;
 }
 
 @media (max-width: 720px)
