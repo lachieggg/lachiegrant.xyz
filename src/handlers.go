@@ -105,8 +105,8 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 	writeFile(w, filePath)
 }
 
-// topHandler
-func topHandler(w http.ResponseWriter, r *http.Request) {
+// htopHandler
+func htopHandler(w http.ResponseWriter, r *http.Request) {
 	cmd := exec.Command("sh", "-c", "echo q | htop | aha --black --line-fix")
 	cmd.Env = append(os.Environ(), "TERM=xterm")
 	out, err := cmd.CombinedOutput()
