@@ -29,6 +29,11 @@ body {
   scrollbar-width: none;
 }
 
+.nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .navigation-bar {
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
@@ -38,11 +43,6 @@ body {
 .navbar .navbar-nav {
   justify-content: center;
   flex-direction: row;
-}
-
-.nav-item {
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 @media (max-width: 720px)
@@ -73,6 +73,10 @@ body {
     font-size: 32px;
   }
 
+  .nav-item {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 
   h2 {
     font-size: 30px;
