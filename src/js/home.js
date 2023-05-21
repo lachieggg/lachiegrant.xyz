@@ -2,7 +2,10 @@ var IMAGES_URL = process.env.IMAGES_URL + 'images/'
 
 const images = process.env.PICTURES.split(',');
 
-var defaultImage = IMAGES_URL + images[0]
+// Get a random index within the array length
+var randomIndex = Math.floor(Math.random() * array.length);
+
+var defaultImage = IMAGES_URL + images[randomIndex]
 
 setPicture();
 
