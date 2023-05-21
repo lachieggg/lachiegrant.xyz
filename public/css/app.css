@@ -25,10 +25,6 @@ body {
   text-align: left;
 }
 
-/* .container {
-  width: 50%;
-} */
-
 :root {
   scrollbar-color: #BA0B00 #000000;
   scrollbar-width: none;
@@ -71,14 +67,11 @@ body {
   .img {
     border-radius: 20px;
     align-self: center;
-    align-items: center;
     max-height: none;
   }
 
   .navbar .navbar-nav {
     font-size: 40px;
-    margin: 20px;
-    border-radius: 10px;
   }
 
   h2 {
