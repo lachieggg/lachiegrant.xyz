@@ -37,10 +37,6 @@ body {
 }
 
 .navbar .navbar-nav {
-  /* display: inline-block; */
-  /* float: none; */
-  /* vertical-align: top; */
-  /* align-items: center; */
   justify-content: center;
 }
 
@@ -70,6 +66,7 @@ body {
 
   .navbar .navbar-nav {
     font-size: 40px;
+    justify-content: center;
   }
 
   h2 {
