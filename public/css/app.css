@@ -58,13 +58,13 @@ body {
   }
 
   .img .home-img {
+    padding-top: 50px;
     border-radius: 20px;
     max-height: none;
   }
 
   .navbar .navbar-nav {
     font-size: 40px;
-    margin-bottom: 50px;
   }
 
   .nav-item {
