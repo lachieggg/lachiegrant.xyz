@@ -71,8 +71,8 @@ body {
   }
 
   .nav-link {
-    padding-left: .5rem !important;
-    padding-right: .5rem !important;
+    padding-left: .5rem!important;
+    padding-right: .5rem!important;
   }
 
   h2 {
