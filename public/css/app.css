@@ -81,12 +81,17 @@ body {
   }
 
   .index-body {
-    font-size: 50px;
+    font-size: 30px;
+    font-weight: 100;
+  }
+
+  .blog-body {
+    font-size: 30px;
     font-weight: 100;
   }
 
   .navigation-bar {
-    font-size: 50px;
+    font-size: 30px;
   }
 
   .login-button {
