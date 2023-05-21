@@ -9,26 +9,20 @@ import (
 
 // main
 func main() {
+	// Configure the Go logger to write logs to stdout
+	log.SetOutput(os.Stdout)
 	log.Printf("Alive")
+
+	// Define routes
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/files/", filesHandler)
 	http.HandleFunc("/github", githubHandler)
-
-	// Top
-	http.HandleFunc("/htop", htopHandler)
-
+	http.HandleFunc("/status", statusHandler)
 	// Blog
-	http.HandleFunc("/blog/", blogHandler) // Match /blog/{filename}
 	http.HandleFunc("/blog", blogHandler)
+	http.HandleFunc("/blog/", blogHandler) // Match /blog/{filename}
 
+	// Load in key/values from environment file
 	loadenv.LoadEnv(".env")
 
 	http.ListenAndServe(":9000", nil)
-}
-
-
-
-func init() {
-	// Configure the Go logger to write logs to stdout
-	log.SetOutput(os.Stdout)
 }

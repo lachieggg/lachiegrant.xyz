@@ -55,3 +55,7 @@ coverage:
 help:
 	@echo "Available targets:"
 	@grep '^[^#[:space:]].*:' Makefile | awk -F':' '{print $$1}' | grep -v ".PHONY"
+
+.PHONY: tidyhtml
+tidyhtml:
+	find . -name "*.html" -exec tidy -m {} \;
