@@ -33,7 +33,7 @@ body {
 .navigation-bar {
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .navbar .navbar-nav {
@@ -71,8 +71,8 @@ body {
   }
 
   .nav-item {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   h2 {
