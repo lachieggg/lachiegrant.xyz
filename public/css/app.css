@@ -11,13 +11,12 @@ body {
 }
 
 .blog-img {
-  /* max-height: 15%; */
+  max-height: 15%;
   border-radius: 20px;
 }
 
 .img {
   border-radius: 20px;
-  max-height: 600px;
 }
 
 .blog {
