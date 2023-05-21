@@ -1,4 +1,4 @@
-var IMAGES_URL = process.env.IMAGES_URL + 'images/'
+var IMAGES_URL = 'images/'
 
 const images = process.env.PICTURES.split(',');
 
