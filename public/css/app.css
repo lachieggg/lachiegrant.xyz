@@ -35,12 +35,12 @@ body {
   font: 'Courier New';
   font-size: 14px;
 }
-
+/* 
 .navbar .navbar-nav {
   display: inline-block;
   float: none;
   vertical-align: top;
-}
+} */
 
 @media (max-width: 720px)
 {
@@ -60,18 +60,11 @@ body {
     font-weight: 100;
   }
 
-  .img {
+  .img .home-img {
     border-radius: 20px;
     align-self: center;
     max-height: none;
   }
-
-  .home-img {
-    border-radius: 20px;
-    align-self: center;
-    align-items: center;
-  }
-  
 
   .navbar .navbar-nav {
     font-size: 40px;
