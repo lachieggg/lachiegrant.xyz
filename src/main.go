@@ -13,7 +13,11 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/files/", filesHandler)
 	http.HandleFunc("/github", githubHandler)
-	http.HandleFunc("/env", Env)
+
+	// Top
+	http.HandleFunc("/top", topHandler)
+
+	// Blog
 	http.HandleFunc("/blog/", blogHandler) // Match /blog/{filename}
 	http.HandleFunc("/blog", blogHandler)
 

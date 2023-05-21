@@ -10,6 +10,7 @@ import (
 	"io"
 	"mime"
 	"log"
+	"os/exec"
 )
 
 // indexHandler
@@ -104,6 +105,18 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 	writeFile(w, filePath)
 }
 
+// topHandler
+func topHandler(w http.ResponseWriter, r *http.Request) {
+	cmd := exec.Command("sh", "-c", "echo q | htop | aha --black --line-fix")
+	cmd.Env = append(os.Environ(), "TERM=xterm")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Printf("%v", err)
+	}
+	fmt.Fprintf(w, "%s\n", out)
+}
+
+
 // writeFile
 func writeFile(w http.ResponseWriter, path string) {
 	// Open the file
@@ -126,17 +139,6 @@ func writeFile(w http.ResponseWriter, path string) {
 		http.Error(w, fmt.Sprintf("Failed to write file content to response: %v", err), http.StatusInternalServerError)
 		return
 	}
-}
-// Home
-func Home(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello, World!")
-}
-
-// Env
-func Env(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, os.Getenv("GITHUB_URL"))
 }
 
 // githubHandler

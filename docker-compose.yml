@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - BUILD_DATE=${BUILD_DATE}
     container_name: app
     image: app
     networks:

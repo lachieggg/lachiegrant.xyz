@@ -6,15 +6,28 @@ build:
 run: clean build
 	./bin/app
 
-webpack:
-	npm run build
+.PHONY: kill
+kill:
+	docker kill $(docker ps -q)	
+
+.PHONY: compile
+compile:
+	docker exec -it app go build -o /app/bin/app /app/src/
+
+.PHONY: remove
+remove:
+	docker volume prune -f && docker rm -f webserver && docker rm -f app && docker ps -a
 
 .PHONY: docker
-docker: webpack
+export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+docker:
+	npm run build
 	docker-compose up --build
 
 .PHONY: daemon
-daemon: webpack
+export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+daemon:
+	npm run build
 	docker-compose up --build -d
 
 .PHONY: clean
