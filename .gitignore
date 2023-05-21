@@ -36,3 +36,6 @@ app
 
 # Acme
 **/.well-known
+
+# Generated
+**/generated/*.js

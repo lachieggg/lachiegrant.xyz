@@ -1,1 +1,0 @@
-(()=>{var t="https://lachie-website.s3.ap-southeast-2.amazonaws.com/images/"+"wtc.jpg".split(",")[0];!function(){try{document.getElementById("home-img").src=t}catch(t){}}()})();
