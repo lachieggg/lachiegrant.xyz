@@ -11,8 +11,9 @@ body {
 }
 
 .blog-img {
-  max-height: 45%;
-  max-width: 45%;
+  border-radius: 20px;
+  align-self: center;
+  align-items: center;
 }
 
 .img {
