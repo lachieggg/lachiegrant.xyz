@@ -24,10 +24,6 @@ body {
   text-align: left;
 }
 
-.half-img {
-  width: 50%;
-}
-
 .container {
   width: 50%;
 }
@@ -61,10 +57,6 @@ body {
 }
 
 @media (pointer:none), (pointer:coarse) {
-  .home-img {
-    align-self: center;
-  }
-
   .index-body {
     font-size: 40px;
     font-weight: 100;
