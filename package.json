@@ -1,0 +1,28 @@
+{
+  "name": "lachiegrant.io",
+  "version": "1.0.0",
+  "description": "lachiegrant.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lachieggg/lachiegrant.io.git"
+  },
+  "author": "Lachlan Grant",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lachieggg/lachiegrant.io/issues"
+  },
+  "homepage": "https://github.com/lachieggg/lachiegrant.io#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1284.0",
+    "dotenv-webpack": "^7.0.3",
+    "jquery": "^3.6.0",
+    "tiny-slider": "^2.9.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}

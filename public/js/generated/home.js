@@ -1,0 +1,1 @@
+(()=>{var t="MISSING_ENV_VAR".IMAGES_URL+"images/"+"MISSING_ENV_VAR".PICTURES.split(",")[0];!function(){try{document.getElementById("home-img").src=t}catch(t){}}()})();
