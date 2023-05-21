@@ -102,8 +102,6 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeFile(w, filePath)
-
-
 }
 
 // writeFile

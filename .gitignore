@@ -19,3 +19,20 @@ app
 
 # Environment
 .env
+
+# TLS
+*.crt
+*.key
+*.csr
+*.pub
+*.pem
+*.cert
+
+# Mac OS
+.DS_Store
+
+# Log files
+*.log
+
+# Acme
+**/.well-known
