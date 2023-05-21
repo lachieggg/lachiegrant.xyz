@@ -49,12 +49,12 @@ body {
 
 @media (pointer:none), (pointer:coarse) {
   .index-body {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 100;
   }
 
   .blog-body {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 100;
   }
 
@@ -65,7 +65,7 @@ body {
   }
 
   .navbar .navbar-nav {
-    font-size: 40px;
+    font-size: 32px;
   }
 
   .nav-item {
