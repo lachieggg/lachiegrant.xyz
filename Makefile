@@ -13,6 +13,10 @@ webpack:
 docker: webpack
 	docker-compose up --build
 
+.PHONY: daemon
+daemon: webpack
+	docker-compose up --build -d
+
 .PHONY: clean
 clean:
 	rm -f bin/app
