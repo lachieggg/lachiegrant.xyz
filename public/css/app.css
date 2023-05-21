@@ -89,9 +89,14 @@ body {
     max-height: 50%;
   }
 
-  .navbar .navbar-nav .navigation-bar {
+  
+  .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
     font-size: 40px;
     margin: 20px;
     border-radius: 10px;
   }
+
 }
