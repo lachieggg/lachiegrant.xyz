@@ -10,18 +10,6 @@ body {
   background: lightblue;
 }
 
-.my-slider {
-  border-radius: 20px;
-  max-height: 400px;
-}
-
-.my-slider-container {
-  width: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .blog-img {
   max-height: 45%;
   max-width: 45%;
@@ -102,5 +90,11 @@ body {
     border-radius: 20px;
     max-width: 50%;
     max-height: 50%;
+  }
+
+  body {
+    padding: 100px;
+    text-align: center;
+    background: lightblue
   }
 }
