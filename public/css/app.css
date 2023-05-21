@@ -62,10 +62,7 @@ body {
 
 @media (pointer:none), (pointer:coarse) {
   .home-img {
-    /* max-width: 50%;
-    max-height: 50%; */
     align-self: center;
-    /* object-fit: cover; */
   }
 
   .index-body {
@@ -80,8 +77,6 @@ body {
 
   .img {
     border-radius: 20px;
-    max-width: 50%;
-    max-height: 50%;
   }
 
   .navbar .navbar-nav {
