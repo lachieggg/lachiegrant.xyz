@@ -70,9 +70,9 @@ body {
     justify-content: center;
   }
 
-  .nav-link {
-    padding-left: .5rem!important;
-    padding-right: .5rem!important;
+  .nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   h2 {
