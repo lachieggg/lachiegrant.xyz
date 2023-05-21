@@ -61,13 +61,11 @@ body {
 
   .img .home-img {
     border-radius: 20px;
-    align-self: center;
     max-height: none;
   }
 
   .navbar .navbar-nav {
     font-size: 40px;
-    justify-content: center;
   }
 
   .nav-item {
