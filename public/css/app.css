@@ -41,12 +41,17 @@ body {
   font-family: 'Courier New', Courier, monospace;
   font: 'Courier New';
   font-size: 14px;
+  margin: 20px;
+  border-radius: 10px;
 }
 
 .navbar .navbar-nav {
   display: inline-block;
   float: none;
   vertical-align: top;
+  font-size: 40px;
+  margin: 20px;
+  border-radius: 10px;
 }
 
 .login-button {
@@ -78,14 +83,6 @@ body {
     font-weight: 100;
   }
 
-  .navigation-bar {
-    font-size: 40px;
-  }
-
-  .login-button {
-    display: none !important;
-  }
-
   .img {
     border-radius: 20px;
     max-width: 50%;
@@ -93,6 +90,7 @@ body {
   }
 
   .navbar .navbar-nav .navigation-bar {
+    font-size: 40px;
     margin: 20px;
     border-radius: 10px;
   }
