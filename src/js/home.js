@@ -1,15 +1,21 @@
 const URL = 'images/'
 const IMAGES = process.env.PICTURES.split(',');
-const DEFAULT = process.env.DEFAULT;
+const HOME_IMG = process.env.HOME_IMG;
+const BLOG_IMG = process.env.BLOG_IMG;
 
-setPicture(DEFAULT);
+const HOME_ID = "home-img"
+const BLOG_ID = "blog-img"
+const HOME_BTN = "home-img-btn"
 
-function setPicture(name) {
+setPicture(HOME_IMG, HOME_ID);
+setPicture(BLOG_IMG, BLOG_ID)
+
+function setPicture(name, id) {
     // Get the image URL from the name
     var imageUrl = URL + name
 
     try {
-        var image = document.getElementById("home-img");
+        var image = document.getElementById(id);
         image.src = imageUrl;
     } catch (err) {
         // no home image on page
@@ -17,12 +23,12 @@ function setPicture(name) {
     }
 }
 
-function randomPicture() {
+function randomHomePicture() {
     // Get a random index within the array length
     var randomIndex = Math.floor(Math.random() * IMAGES.length);
     var imageName = IMAGES[randomIndex];
 
-    setPicture(imageName)
+    setPicture(imageName, HOME_ID)
 }
 
-document.getElementById('home-img-btn').addEventListener('click', randomPicture);
+document.getElementById(HOME_BTN).addEventListener('click', randomHomePicture);
