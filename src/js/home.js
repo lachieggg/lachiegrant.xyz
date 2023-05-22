@@ -31,9 +31,7 @@ function randomHomePicture() {
     setPicture(imageName, HOME_ID);
 }
 
-try {
-    document.getElementById(HOME_BTN).addEventListener('click', randomHomePicture);
-}  catch (err) {
-    // no element on page
-    // skipping
+var homeButton = document.getElementById(HOME_BTN);
+if(homeButton != null) {
+    homeButton.addEventListener('click', randomHomePicture);
 }
