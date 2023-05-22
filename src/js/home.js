@@ -6,7 +6,7 @@ setPicture();
 function setPicture()
 {
     // Get a random index within the array length
-    randomIndex = Math.floor(Math.random() * images.length);
+    randomIndex = Math.floor(Math.random() * IMAGES.length);
     imageUrl = URL + IMAGES[randomIndex];
 
     try {
