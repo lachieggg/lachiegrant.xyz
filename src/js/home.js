@@ -18,4 +18,4 @@ function setPicture()
     }
 }
 
-export default setPicture;
+window.setPicture = setPicture;

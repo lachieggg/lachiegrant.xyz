@@ -7,10 +7,6 @@
 </head>
 <body>
 {{ template "app.html" }}
-<script type="module">
-    import setPicture from '/js/generated/home.js';
-    window.setPicture = setPicture;
-</script>
 <div><img id="home-img" class="img home-img" src=
 "images/sample.png"  onclick="setPicture()"></div>
 </body>
