@@ -6,6 +6,10 @@ body {
   background: lightblue
 }
 
+.home-img-btn {
+  border-radius: 20px;
+}
+
 .index-body {
   background: lightblue;
 }
