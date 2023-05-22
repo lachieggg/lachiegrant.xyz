@@ -18,4 +18,4 @@ function setPicture()
     }
 }
 
-document.getElementById('home-img').addEventListener('click', setPicture);
+document.getElementById('home-img-btn').addEventListener('click', setPicture);
