@@ -1,18 +1,17 @@
-var IMAGES_URL = 'images/'
-
-const images = process.env.PICTURES.split(',');
-
-// Get a random index within the array length
-var randomIndex = Math.floor(Math.random() * images.length);
-
-var defaultImage = IMAGES_URL + images[randomIndex];
+const URL = 'images/'
+const IMAGES = process.env.PICTURES.split(',');
 
 setPicture();
 
 function setPicture()
 {
+    // Get a random index within the array length
+    randomIndex = Math.floor(Math.random() * images.length);
+    imageUrl = URL + IMAGES[randomIndex];
+
     try {
-        document.getElementById("home-img").src = defaultImage;
+        var image = document.getElementById("home-img");
+        image.src = imageUrl;
     } catch (err) {
         // no home image on page
         // skipping
