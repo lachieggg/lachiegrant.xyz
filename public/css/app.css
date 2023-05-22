@@ -8,8 +8,10 @@ body {
 
 .home-img-btn {
   border-radius: 20px;
-  background: transparent;
+  background: lightblue;
   border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .index-body {
