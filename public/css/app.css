@@ -9,6 +9,7 @@ body {
 .home-img-btn {
   border-radius: 20px;
   background: transparent;
+  border: none;
 }
 
 .index-body {
