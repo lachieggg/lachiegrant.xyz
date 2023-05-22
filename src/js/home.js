@@ -1,4 +1,4 @@
-const URL = 'images/'
+const URL = 'images/';
 const IMAGES = process.env.PICTURES.split(',');
 const HOME_IMG = process.env.HOME_IMG;
 const BLOG_IMG = process.env.BLOG_IMG;
