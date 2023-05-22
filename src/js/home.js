@@ -17,3 +17,5 @@ function setPicture()
         // skipping
     }
 }
+
+export default setPicture;
