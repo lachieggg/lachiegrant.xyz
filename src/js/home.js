@@ -6,8 +6,8 @@ setPicture();
 function setPicture()
 {
     // Get a random index within the array length
-    randomIndex = Math.floor(Math.random() * IMAGES.length);
-    imageUrl = URL + IMAGES[randomIndex];
+    var randomIndex = Math.floor(Math.random() * IMAGES.length);
+    var imageUrl = URL + IMAGES[randomIndex];
 
     try {
         var image = document.getElementById("home-img");
