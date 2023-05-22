@@ -18,7 +18,7 @@ function setPicture(name, id) {
         var image = document.getElementById(id);
         image.src = imageUrl;
     } catch (err) {
-        // no home image on page
+        // no image on page
         // skipping
     }
 }
@@ -31,4 +31,9 @@ function randomHomePicture() {
     setPicture(imageName, HOME_ID);
 }
 
-document.getElementById(HOME_BTN).addEventListener('click', randomHomePicture);
+try {
+    document.getElementById(HOME_BTN).addEventListener('click', randomHomePicture);
+}  catch (err) {
+    // no element on page
+    // skipping
+}
