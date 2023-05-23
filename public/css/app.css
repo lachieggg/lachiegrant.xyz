@@ -51,7 +51,8 @@ body {
 @media (max-width: 720px)
 {
   .img {
-    max-height: none;
+    max-height: 50%;
+    max-width: 50%;
   }
 }
 
