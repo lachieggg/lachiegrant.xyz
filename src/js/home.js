@@ -27,7 +27,9 @@ function randomHomePicture() {
     // Get a random index within the array length
     var randomIndex = Math.floor(Math.random() * IMAGES.length);
     var imageName = IMAGES[randomIndex];
-
+    if imageName == "" {
+        randomHomePicture();
+    }
     setPicture(imageName, HOME_ID);
 }
 
