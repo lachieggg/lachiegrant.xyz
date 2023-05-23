@@ -52,6 +52,7 @@ body {
 {
   .img {
     display: none;
+    max-height: none;
   }
 }
 
