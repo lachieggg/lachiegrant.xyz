@@ -46,3 +46,5 @@ node_modules
 # Images
 **/public/images/*.png
 **/public/images/*.webp
+**/public/images/*.py
+**/public/images/ai-images
