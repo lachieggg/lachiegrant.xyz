@@ -5,7 +5,7 @@ body {
   text-align: center;
   background: lightblue
 }
-
+/* 
 .home-img-btn {
   border-radius: 20px;
   background: lightblue;
@@ -13,7 +13,7 @@ body {
   padding: 0;
   margin: 0;
   outline: none;
-}
+} */
 
 .index-body {
   background: lightblue;
@@ -25,12 +25,6 @@ body {
 }
 
 .blog-img {
-  border-radius: 20px;
-  max-height: 80%;
-  max-width: 80%;
-}
-
-.img {
   border-radius: 20px;
   max-height: 80%;
   max-width: 80%;
@@ -64,7 +58,7 @@ body {
 
 @media (max-width: 720px)
 {
-  .img {
+  .home-img {
     max-height: 80%;
     max-width: 80%;
   }
@@ -81,7 +75,7 @@ body {
     font-weight: 100;
   }
 
-  .img .home-img {
+  .home-img {
     padding-top: 50px;
     border-radius: 20px;
     max-height: 80%;
