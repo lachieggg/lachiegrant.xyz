@@ -24,7 +24,14 @@ body {
   padding-left: .5rem!important;
 }
 
-.blog-img .img {
+.blog-img {
+  max-height: 25%;
+  border-radius: 20px;
+  max-height: 80%;
+  max-width: 80%;
+}
+
+.img {
   border-radius: 20px;
   max-height: 80%;
   max-width: 80%;
