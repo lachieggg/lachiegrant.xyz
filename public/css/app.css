@@ -12,6 +12,7 @@ body {
   border: none;
   padding: 0;
   margin: 0;
+  outline: none;
 }
 
 .index-body {
@@ -54,11 +55,6 @@ body {
     max-height: 80%;
     max-width: 80%;
   }
-
-  .home-img-btn {
-    max-height: 80%;
-    max-width: 80%;
-  }
 }
 
 @media (pointer:none), (pointer:coarse) {
@@ -75,11 +71,6 @@ body {
   .img .home-img {
     padding-top: 50px;
     border-radius: 20px;
-    max-height: 80%;
-    max-width: 80%;
-  }
-
-  .home-img-btn {
     max-height: 80%;
     max-width: 80%;
   }
