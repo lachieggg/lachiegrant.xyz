@@ -19,6 +19,11 @@ body {
   background: lightblue;
 }
 
+.nav-link {
+  padding-right: .5rem!important;
+  padding-left: .5rem!important;
+}
+
 .blog-img {
   max-height: 25%;
   border-radius: 20px;
