@@ -54,6 +54,11 @@ body {
     max-height: 80%;
     max-width: 80%;
   }
+
+  .home-img-btn {
+    max-height: 80%;
+    max-width: 80%;
+  }
 }
 
 @media (pointer:none), (pointer:coarse) {
