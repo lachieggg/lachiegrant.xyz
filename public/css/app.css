@@ -26,14 +26,20 @@ body {
 
 .blog-img {
   border-radius: 20px;
-  max-height: 60%;
-  max-width: 60%;
+  max-height: 80%;
+  max-width: 80%;
 }
 
 .img {
   border-radius: 20px;
   max-height: 80%;
   max-width: 80%;
+}
+
+.home-img {
+  border-radius: 20px;
+  max-height: 60%;
+  max-width: 60%;
 }
 
 .blog {
