@@ -50,6 +50,14 @@ body {
   flex-direction: row;
 }
 
+@media (max-width: 720px)
+{
+  .img {
+    max-height: 80%;
+    max-width: 80%;
+  }
+}
+
 @media (pointer:none), (pointer:coarse) {
   .index-body {
     font-size: 36px;
@@ -79,14 +87,5 @@ body {
 
   h2 {
     font-size: 30px;
-  }
-}
-
-@media (max-width: 720px)
-{
-  .img .home-img {
-    max-height: 25%;
-    max-width: 25%;
-    border-radius: 20px
   }
 }
