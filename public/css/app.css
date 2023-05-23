@@ -52,9 +52,10 @@ body {
 
 @media (max-width: 720px)
 {
-  .img {
+  .img .home-img {
     max-height: 80%;
     max-width: 80%;
+    border-radius: 20px
   }
 }
 
