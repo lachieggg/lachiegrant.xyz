@@ -42,3 +42,7 @@ app
 
 # Node
 node_modules
+
+# Images
+**/public/images/*.png
+**/public/images/*.webp
