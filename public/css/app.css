@@ -74,6 +74,11 @@ body {
     max-width: 80%;
   }
 
+  .home-img-btn {
+    max-height: 80%;
+    max-width: 80%;
+  }
+
   .navbar .navbar-nav {
     font-size: 32px;
   }
