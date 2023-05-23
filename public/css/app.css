@@ -31,7 +31,8 @@ body {
 
 .img {
   border-radius: 20px;
-  max-height: 400px;
+  max-height: 80%;
+  max-width: 80%;
 }
 
 .blog {
