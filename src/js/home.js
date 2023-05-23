@@ -27,10 +27,10 @@ function randomHomePicture() {
     // Get a random index within the array length
     var randomIndex = Math.floor(Math.random() * IMAGES.length);
     var imageName = IMAGES[randomIndex];
+    setPicture(imageName, HOME_ID);
     if(imageName == "") {
         randomHomePicture();
     }
-    setPicture(imageName, HOME_ID);
 }
 
 var homeButton = document.getElementById(HOME_BTN);
