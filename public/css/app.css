@@ -22,6 +22,7 @@ body {
 }
 
 .home-img {
+  box-sizing: border-box;
   border-radius: 20px;
   max-height: 50%;
   max-width: 50%;
