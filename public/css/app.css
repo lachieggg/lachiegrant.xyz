@@ -67,6 +67,7 @@ body {
   }
 
   .home-img {
+    box-sizing: border-box;
     padding-top: 50px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
