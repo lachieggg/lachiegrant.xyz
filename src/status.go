@@ -16,9 +16,8 @@ const titleString = titleOpen + "%s" + titleClose
 // statusHandler
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	htop := ExecuteCmd("htop")
-	nf := ExecuteCmd("neofetch")
 
-	html := string(htop) + string(nf)
+	html := string(htop)
 	html = replacer(html)
 
 	_, err := w.Write([]byte(html))
