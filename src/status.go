@@ -40,8 +40,8 @@ func replacer(input []byte) string {
 // ExecuteCmd executes a shell command and gets the formatted output
 // for display
 func ExecuteCmd(cmd string) string {
-	cmdString := fmt.Sprintf("sh", "-c", "echo q | %s | aha --black --line-fix", cmd)
-	htop := exec.Command(cmdString)
+	cmdString := fmt.Sprintf("echo q | %s | aha --black --line-fix", cmd)
+	htop := exec.Command("sh", "-c", cmdString)
 	htop.Env = append(os.Environ(), "TERM=xterm")
 	output, err := htop.CombinedOutput()
 	if err != nil {
