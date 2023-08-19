@@ -2,39 +2,26 @@ package main
 
 import (
 	"fmt"
+	"goservice/pkg/xml"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
-	"strings"
 )
-
-const titleOpen = "<title>"
-const titleClose = "</title>"
-const titleString = titleOpen + "%s" + titleClose
 
 // statusHandler
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	htop := ExecuteCmd("htop")
+	nf := ExecuteCmd("neofetch")
 
-	html := string(htop)
-	html = replacer(html)
+	// Merge XML outputs
+	mergedOutput := xml.MergeXML(htop, nf, "Status")
 
-	_, err := w.Write([]byte(html))
+	_, err := w.Write([]byte(mergedOutput))
 	if err != nil {
 		log.Printf("%v", err)
 	}
 	w.Header().Set("Content-Type", "text/html")
-}
-
-// replacer
-func replacer(input string) string {
-	return strings.Replace(
-		input,
-		fmt.Sprintf(titleString, "stdin"),
-		fmt.Sprintf(titleString, "Status"),
-		1,
-	)
 }
 
 // ExecuteCmd executes a shell command and gets the formatted output
