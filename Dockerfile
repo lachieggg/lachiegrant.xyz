@@ -9,6 +9,6 @@ WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN apk update
-RUN apk add procps htop aha
+RUN apk add procps htop aha neofetch
 
 CMD ["./scripts/start.sh"]
