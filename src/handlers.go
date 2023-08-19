@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"io"
+	"log"
+	"mime"
 	"net/http"
 	"os"
 	"path/filepath"
-	"io"
-	"mime"
-	"log"
 )
 
 // parseTemplates
@@ -47,7 +47,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	t := parseTemplates(w)
 	if t == nil {
-		return 
+		return
 	}
 
 	err := t.ExecuteTemplate(w, "home.html", nil)
