@@ -18,7 +18,8 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 	htop := ExecuteCmd("htop")
 	nf := ExecuteCmd("neofetch")
 
-	html := htop + nf
+	html := string(htop) + string(nf)
+	html = replacer(html)
 
 	_, err := w.Write([]byte(html))
 	if err != nil {
@@ -28,9 +29,9 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // replacer
-func replacer(input []byte) string {
+func replacer(input string) string {
 	return strings.Replace(
-		string(input),
+		input,
 		fmt.Sprintf(titleString, "stdin"),
 		fmt.Sprintf(titleString, "Status"),
 		1,
@@ -39,7 +40,7 @@ func replacer(input []byte) string {
 
 // ExecuteCmd executes a shell command and gets the formatted output
 // for display
-func ExecuteCmd(cmd string) string {
+func ExecuteCmd(cmd string) []byte {
 	cmdString := fmt.Sprintf("echo q | %s | aha --black --line-fix", cmd)
 	htop := exec.Command("sh", "-c", cmdString)
 	htop.Env = append(os.Environ(), "TERM=xterm")
@@ -48,5 +49,5 @@ func ExecuteCmd(cmd string) string {
 		log.Printf("%v", err)
 	}
 
-	return replacer(output)
+	return output
 }
