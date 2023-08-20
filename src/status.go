@@ -10,7 +10,7 @@ import (
 	"os/exec"
 )
 
-const nfHtmlPath = "../public/neofetch.html"
+const nfHtmlPath = "./public/neofetch.html"
 
 // getStatusContent
 func getStatusContent() (string, error) {
@@ -24,6 +24,9 @@ func getStatusContent() (string, error) {
 
 	// Merge
 	merged, err := xml.MergeHTMLContents(htopHtml, nfHtml)
+	if err != nil {
+		return "", err
+	}
 	return merged, err
 }
 

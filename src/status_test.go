@@ -10,8 +10,9 @@ import (
 
 // TestStatusHandler
 func TestStatusHandler(t *testing.T) {
-	_, err := getStatusContent()
+	s, err := getStatusContent()
 	assert.Nil(t, err)
+	assert.NotEqual(t, 0, len(s))
 }
 
 // WriteStringToFile writes the provided content to a file with the given name.
