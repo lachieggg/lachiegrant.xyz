@@ -1,78 +1,64 @@
 package xml
 
 import (
-	"bytes"
-	"errors"
 	"fmt"
-	"regexp"
 	"strings"
+
+	"golang.org/x/net/html"
 )
 
-const titleOpen = "<title>"
-const titleClose = "</title>"
-const titleString = titleOpen + "%s" + titleClose
+const tagErrorMsg = "Error extracting tags: %v"
 
-// MergeXML
-func MergeXML(firstXML []byte, secondXML []byte, title string) string {
-	// Extract contents inside <body> tags for both XML outputs
-	extractBodyContent := func(xmlData []byte) string {
-		start := bytes.Index(xmlData, []byte("<body>"))
-		end := bytes.Index(xmlData, []byte("</body>"))
-		if start == -1 || end == -1 {
-			return ""
+// ExtractTags
+func ExtractTags(htmlContent string, tagName string) ([]string, error) {
+	doc, err := html.Parse(strings.NewReader(htmlContent))
+	if err != nil {
+		return nil, err
+	}
+
+	var tags []string
+	var f func(*html.Node)
+	f = func(n *html.Node) {
+		if n.Type == html.ElementNode && n.Data == tagName {
+			var b strings.Builder
+			html.Render(&b, n)
+			tags = append(tags, b.String())
 		}
-		return string(xmlData[start+len("<body>") : end])
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c)
+		}
+	}
+	f(doc)
+
+	return tags, nil
+}
+
+// MergeHTMLContents
+func MergeHTMLContents(htmlContent1, htmlContent2 string) (string, error) {
+	bodies1, err := ExtractTags(htmlContent1, "body")
+	if err != nil || len(bodies1) == 0 {
+		return "", fmt.Errorf(tagErrorMsg, err)
 	}
 
-	firstBody := extractBodyContent(firstXML)
-	secondBody := extractBodyContent(secondXML)
-
-	// Combine the two extracted body contents
-	combined := firstBody + "<br><br>" + secondBody
-
-	header := "<head><title>Status</title></head>"
-	body := "<body>%s</body>"
-	// Create the final merged XML
-	mergedXML := fmt.Sprintf("<html>"+header+body+"</html>", combined)
-
-	return mergedXML
-}
-
-// Replacer
-func Replacer(input string) string {
-	return strings.Replace(
-		input,
-		fmt.Sprintf(titleString, "stdin"),
-		fmt.Sprintf(titleString, "Status"),
-		1,
-	)
-}
-
-// stripNewlinesAndTabs
-func stripNewlinesAndTabs(s string) string {
-	s = strings.ReplaceAll(s, "\n", "")
-	s = strings.ReplaceAll(s, "\t", "")
-	return s
-}
-
-// extractBodyContent extracts content inside the <body> tags from a given HTML string.
-func extractBodyContent(htmlStr string) (content string, err error) {
-	re := regexp.MustCompile(`(?s)<body.*?>(.*?)<\/body>`)
-	matches := re.FindStringSubmatch(htmlStr)
-	if len(matches) < 2 {
-		return "", errors.New("could not find content within <body> tags")
-	}
-	return matches[1], nil
-}
-
-// MergeBodyContents takes in two HTML strings and merges their body contents.
-func MergeBodyContents(html1, html2 string) (merged string, err error) {
-	content1, err1 := extractBodyContent(html1)
-	content2, err2 := extractBodyContent(html2)
-	if err1 != nil || err2 != nil {
-		return "", errors.New("error extracting body contents")
+	bodies2, err := ExtractTags(htmlContent2, "body")
+	if err != nil || len(bodies2) == 0 {
+		return "", fmt.Errorf(tagErrorMsg, err)
 	}
 
-	header := "<html><head><title>Status</title></head>"
-	return header + fmt.Sprintf("<body>%s<br><br>%s</body>", content1, content2) + "</html>", nil
+	styles1, err := ExtractTags(htmlContent1, "style")
+	if err != nil {
+		return "", fmt.Errorf(tagErrorMsg, err)
+	}
+
+	styles2, err := ExtractTags(htmlContent2, "style")
+	if err != nil {
+		return "", fmt.Errorf(tagErrorMsg, err)
+	}
+
+	return fmt.Sprintf("<html><head>%s%s</head>%s%s</html>",
+		strings.Join(styles1, ""),
+		strings.Join(styles2, ""),
+		bodies1[0],
+		bodies2[0],
+	), nil
 }

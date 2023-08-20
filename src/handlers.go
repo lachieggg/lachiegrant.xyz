@@ -3,9 +3,6 @@ package main
 import (
 	"fmt"
 	"html/template"
-	"io"
-	"log"
-	"mime"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -53,30 +50,6 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	err := t.ExecuteTemplate(w, "home.html", nil)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
-	}
-}
-
-// writeFile
-func writeFile(w http.ResponseWriter, path string) {
-	// Open the file
-	file, err := os.Open(path)
-	if err != nil {
-		log.Printf("Failed to open file: %v", err)
-		http.Error(w, fmt.Sprintf("Failed to open file: %v", err), http.StatusInternalServerError)
-		return
-	}
-	defer file.Close()
-
-	// Set the Content-Type header based on the file extension
-	contentType := mime.TypeByExtension(filepath.Ext(path))
-	w.Header().Set("Content-Type", contentType)
-
-	// Copy the file contents to the response writer
-	_, err = io.Copy(w, file)
-	if err != nil {
-		log.Printf("Failed to write file content to response: %v", err)
-		http.Error(w, fmt.Sprintf("Failed to write file content to response: %v", err), http.StatusInternalServerError)
-		return
 	}
 }
 
