@@ -5,7 +5,6 @@ import (
 	"goservice/pkg/loadenv"
 	"log"
 	"net/http"
-	"os"
 )
 
 const port = 9000
