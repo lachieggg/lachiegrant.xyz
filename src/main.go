@@ -12,8 +12,7 @@ const port = 9000
 
 // main
 func main() {
-	// Configure the Go logger to write logs to stdout
-	log.SetOutput(os.Stdout)
+	initLogger("log.out")
 
 	// Define routes
 	http.HandleFunc("/", middlewareFunc(indexHandler))
