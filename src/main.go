@@ -16,12 +16,12 @@ func main() {
 	log.SetOutput(os.Stdout)
 
 	// Define routes
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/code", githubHandler)
-	http.HandleFunc("/status", statusHandler)
+	http.HandleFunc("/", middlewareFunc(indexHandler))
+	http.HandleFunc("/code", middlewareFunc(githubHandler))
+	http.HandleFunc("/status", middlewareFunc(statusHandler))
 	// Blog
-	http.HandleFunc("/blog", blogHandler)
-	http.HandleFunc("/blog/", blogHandler) // Match /blog/{filename}
+	http.HandleFunc("/blog", middlewareFunc(blogHandler))
+	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Match /blog/{filename}
 
 	// Load in key/values from environment file
 	loadenv.LoadEnv(".env")
