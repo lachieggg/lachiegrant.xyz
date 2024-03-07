@@ -1,9 +1,10 @@
 Scripts
 =
 
-This folder contains run scripts. These scripts must be run from the root directory.
+This folder contains scripts. 
 
-Eg.
-
-`./scripts/start.sh`
+Some of these scripts must be run from the root directory:
+ - start.sh
+ - start-docker.sh
+ - restart-docker.sh
 
