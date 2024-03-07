@@ -1,5 +1,7 @@
 .PHONY: run clean docker test testgo htmlcoverage coverage help
 
+export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
 build:
 	go build -o bin/app src/*.go
 
@@ -8,7 +10,7 @@ run: clean build
 
 .PHONY: kill
 kill:
-	docker kill $(docker ps -q)	
+	docker kill $(docker ps -q)
 
 .PHONY: compile
 compile:
@@ -19,13 +21,11 @@ remove:
 	docker volume prune -f && docker rm -f webserver && docker rm -f app && docker ps -a
 
 .PHONY: docker
-export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 docker:
 	npm run build
 	docker-compose up --build
 
 .PHONY: daemon
-export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 daemon:
 	npm run build
 	docker-compose up --build -d
