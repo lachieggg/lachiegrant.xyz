@@ -85,3 +85,8 @@ body {
     font-size: 30px;
   }
 }
+
+.rpi-img {
+  max-height: 20px;
+  max-width: 20px;
+}
