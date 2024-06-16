@@ -90,3 +90,7 @@ body {
   max-height: 20px;
   max-width: 20px;
 }
+
+.monospace-text {
+  font-family: 'Courier New', Courier, monospace;
+}
