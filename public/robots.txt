@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lachiegrant.io/sitemap.xml
+Sitemap: https://lachiegrant.xyz/sitemap.xml
