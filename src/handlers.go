@@ -57,3 +57,17 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 func githubHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, os.Getenv("GITHUB_URL"), http.StatusSeeOther)
 }
+
+
+// bookmarksHandler
+func bookmarksHandler(w http.ResponseWriter, r *http.Request) {
+	t := parseTemplates(w)
+	if t == nil {
+		return
+	}
+
+	err := t.ExecuteTemplate(w, "bookmarks.html", nil)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
+	}
+}
