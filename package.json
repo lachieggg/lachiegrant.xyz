@@ -1,7 +1,7 @@
 {
-  "name": "lachiegrant.io",
+  "name": "lachiegrant.xyz",
   "version": "1.0.0",
-  "description": "lachiegrant.io",
+  "description": "lachiegrant.xyz",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lachieggg/lachiegrant.io.git"
+    "url": "git+https://github.com/lachieggg/lachiegrant.xyz.git"
   },
   "author": "Lachlan Grant",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lachieggg/lachiegrant.io/issues"
+    "url": "https://github.com/lachieggg/lachiegrant.xyz/issues"
   },
-  "homepage": "https://github.com/lachieggg/lachiegrant.io#readme",
+  "homepage": "https://github.com/lachieggg/lachiegrant.xyz#readme",
   "dependencies": {
     "aws-sdk": "^2.1284.0",
     "dotenv-webpack": "^7.1.1",
