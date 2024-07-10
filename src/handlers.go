@@ -11,6 +11,10 @@ import (
 // parseTemplates
 func parseTemplates(w http.ResponseWriter) *template.Template {
 	wd, err := os.Getwd()
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Operating system error: %v", err), http.StatusInternalServerError)
+		return nil
+	}
 
 	// First folder
 	standardFolder := filepath.Join(wd, "src", "templates", "*.html")

@@ -6,6 +6,7 @@ import (
 	"strings"
 	"fmt"
 )
+
 // blogHandler handles the /blog route and specific files within /blog
 func blogHandler(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path
