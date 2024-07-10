@@ -10,7 +10,8 @@ const HOME_BTN = "home-img-btn";
 
 setPicture(HOME_ID,HOME_IMG);
 setPicture(BLOG_ID,BLOG_IMG);
-setPicture(BOOK_ID, BOOK_IMG);
+setPicture(BOOK_ID,BOOK_IMG);
+
 
 // setPicture
 // id   -> the id of the element to set 
