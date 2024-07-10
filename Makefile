@@ -1,5 +1,3 @@
-.PHONY: run clean docker test testgo htmlcoverage coverage help
-
 export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
 build:
@@ -53,9 +51,12 @@ coverage:
 
 .PHONY: help
 help:
-	@echo "Available targets:"
-	@grep '^[^#[:space:]].*:' Makefile | awk -F':' '{print $$1}' | grep -v ".PHONY"
+	@grep '^[^#[:space:]].*:' Makefile | awk -F':' '{print $$1}' | grep -Ev ".PHONY|export"
 
 .PHONY: tidyhtml
 tidyhtml:
 	find . -name "*.html" -exec tidy -m {} \;
+
+.PHONY: linthtml
+linthtml:
+	which eslint || brew install eslint
