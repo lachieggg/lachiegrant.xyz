@@ -20,6 +20,8 @@ func main() {
 	// Blog
 	http.HandleFunc("/blog", middlewareFunc(blogHandler))
 	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Match /blog/{filename}
+	// Bookmarks
+	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
 
 	// Load in key/values from environment file
 	loadenv.LoadEnv(".env")
