@@ -18,8 +18,9 @@ const (
 func initLogger(logFileName string) {
 	_, logging := os.LookupEnv(loggingKey)
 	if !logging {
-		// stdout
-		logger = log.New(os.Stdout, "", log.LstdFlags)
+		// No logging
+		null, _ := os.Open("/dev/null")
+		logger = log.New(null, "", log.LstdFlags)
 		return
 	}
 
