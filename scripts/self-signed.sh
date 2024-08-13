@@ -8,6 +8,10 @@ if [ "$current_dir" = "scripts" ] || [ ! -f "Makefile" ]; then
     exit;
 fi
 
+pwd
+
+mkdir -p ./tls/nginx/keys ./tls/nginx/certs
+
 # Generate a new SSL certificate and key 
 openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
     -keyout ./tls/nginx/keys/privkey.pem \
