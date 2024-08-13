@@ -7,10 +7,15 @@ import (
 	"net/http"
 )
 
-const port = 9000
+const (
+	port = 9000
+)
 
 // main
 func main() {
+	// Load in key/values from environment file
+	loadenv.LoadEnv(".env")
+
 	initLogger("log.out")
 
 	// Define routes
@@ -22,9 +27,6 @@ func main() {
 	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Match /blog/{filename}
 	// Bookmarks
 	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
-
-	// Load in key/values from environment file
-	loadenv.LoadEnv(".env")
 
 	log.Printf("Alive on port %d", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
