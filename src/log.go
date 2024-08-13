@@ -5,7 +5,10 @@ import (
 	"os"
 )
 
-var logger *log.Logger
+var (
+	logger  *log.Logger
+	logFile *os.File
+)
 
 const (
 	loggingKey = "LOGGING"
@@ -15,6 +18,8 @@ const (
 func initLogger(logFileName string) {
 	_, logging := os.LookupEnv(loggingKey)
 	if !logging {
+		// stdout
+		logger = log.New(os.Stdout, "", log.LstdFlags)
 		return
 	}
 
@@ -23,6 +28,6 @@ func initLogger(logFileName string) {
 		log.Fatal(err)
 	}
 
-	// Create the global logger
+	// Create global logger
 	logger = log.New(logFile, "", log.LstdFlags)
 }
