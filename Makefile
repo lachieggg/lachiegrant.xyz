@@ -20,7 +20,6 @@ remove:
 
 .PHONY: docker
 docker:
-	npm run build
 	docker-compose up --build
 
 .PHONY: daemon
