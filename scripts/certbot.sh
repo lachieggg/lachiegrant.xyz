@@ -51,4 +51,4 @@ sudo cp /etc/letsencrypt/live/lachiegrant.xyz/privkey.pem ./tls/nginx/keys/privk
 sudo find /etc/letsencrypt/live
 
 # Restart service
-docker-compose up -d
+docker compose up -d
