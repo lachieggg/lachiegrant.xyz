@@ -22,7 +22,7 @@
     "dotenv-webpack": "^7.1.1",
     "jquery": "^3.6.0",
     "tiny-slider": "^2.9.4",
-    "webpack": "^5.83.1",
+    "webpack": "^5.96.1",
     "webpack-cli": "^4.9.1"
   }
 }
