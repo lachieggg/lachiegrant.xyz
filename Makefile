@@ -59,3 +59,7 @@ tidyhtml:
 .PHONY: linthtml
 linthtml:
 	which eslint || brew install eslint
+
+.PHONY: certbot
+certbot:
+	./scripts/certbot.sh
