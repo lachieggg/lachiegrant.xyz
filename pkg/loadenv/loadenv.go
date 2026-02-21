@@ -27,7 +27,7 @@ func LoadEnv(envPath string) error {
 
 		parts := strings.SplitN(line, "=", 2)
 		if len(parts) != 2 {
-			return fmt.Errorf("Invalid format in .env file: %s", line)
+			return fmt.Errorf("invalid format in .env file: %s", line)
 		}
 
 		key, value := strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1])

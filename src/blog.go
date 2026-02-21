@@ -1,21 +1,22 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"strings"
 	"fmt"
+	"log"
+	"net/http"
+	"strings"
 )
 
-// blogHandler handles the /blog route and specific files within /blog
+// blogHandler serves blog content. For /blog it renders the blog index page.
+// For /blog/{post-name} it renders the corresponding post template.
 func blogHandler(w http.ResponseWriter, r *http.Request) {
 	path := r.URL.Path
 	segments := strings.Split(path, "/")
 
-	// The post name should be the last segment
+	// Extract the post name from the URL path (e.g., /blog/my-post -> "my-post")
 	postName := segments[len(segments)-1]
 
-	log.Printf("%s", postName)
+	log.Printf("Blog request for post: %s", postName)
 
 	t := parseTemplates(w)
 	if t == nil {

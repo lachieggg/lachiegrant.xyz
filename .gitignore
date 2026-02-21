@@ -51,3 +51,7 @@ node_modules
 **/public/images/*.webp
 **/public/images/*.py
 **/public/images/ai-images
+
+# Diffs
+out
+diff

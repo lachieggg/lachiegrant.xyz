@@ -7,33 +7,37 @@ import (
 	"golang.org/x/net/html"
 )
 
-const tagErrorMsg = "Error extracting tags: %v"
+const tagErrorMsg = "error extracting tags: %v"
 
-// ExtractTags
-func ExtractTags(htmlContent string, tagName string) ([]string, error) {
+// ExtractTags parses HTML content and returns all elements matching the given tag name.
+// For example, ExtractTags(html, "body") returns all <body> elements as HTML strings.
+func ExtractTags(htmlContent, tagName string) ([]string, error) {
 	doc, err := html.Parse(strings.NewReader(htmlContent))
 	if err != nil {
 		return nil, err
 	}
 
 	var tags []string
-	var f func(*html.Node)
-	f = func(n *html.Node) {
+	// Recursive function to traverse the DOM tree
+	var traverse func(*html.Node)
+	traverse = func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == tagName {
 			var b strings.Builder
 			html.Render(&b, n)
 			tags = append(tags, b.String())
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
-			f(c)
+			traverse(c)
 		}
 	}
-	f(doc)
+	traverse(doc)
 
 	return tags, nil
 }
 
-// MergeHTMLContents
+// MergeHTMLContents combines two HTML documents by merging their styles and bodies.
+// The resulting HTML contains styles from both documents in the head,
+// and both body contents in sequence.
 func MergeHTMLContents(htmlContent1, htmlContent2 string) (string, error) {
 	bodies1, err := ExtractTags(htmlContent1, "body")
 	if err != nil || len(bodies1) == 0 {

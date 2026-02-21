@@ -8,7 +8,10 @@ import (
 	"path/filepath"
 )
 
-// parseTemplates
+// parseTemplates loads and parses all HTML templates from the templates directory.
+// Returns nil and writes an error response if template parsing fails.
+// NOTE: Templates are currently re-parsed on each request. For production,
+// consider parsing once at startup and caching the result.
 func parseTemplates(w http.ResponseWriter) *template.Template {
 	wd, err := os.Getwd()
 	if err != nil {
@@ -16,7 +19,7 @@ func parseTemplates(w http.ResponseWriter) *template.Template {
 		return nil
 	}
 
-	// First folder
+	// Parse standard page templates
 	standardFolder := filepath.Join(wd, "src", "templates", "*.html")
 	t, err := template.ParseGlob(standardFolder)
 	if err != nil {
@@ -24,7 +27,7 @@ func parseTemplates(w http.ResponseWriter) *template.Template {
 		return nil
 	}
 
-	// Second folder
+	// Parse blog post templates
 	blogFolder := filepath.Join(wd, "src", "templates", "blog", "*.html")
 	t, err = t.ParseGlob(blogFolder)
 	if err != nil {
@@ -35,43 +38,41 @@ func parseTemplates(w http.ResponseWriter) *template.Template {
 	return t
 }
 
-// indexHandler
+// indexHandler serves the root path. It renders the home page for "/" and
+// returns 404 for any other path (since "/" matches all unhandled routes).
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
-	} else {
-		homeHandler(w, r)
+		return
 	}
+	homeHandler(w, r)
 }
 
-// homeHandler
+// homeHandler renders the home page template.
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	t := parseTemplates(w)
 	if t == nil {
 		return
 	}
 
-	err := t.ExecuteTemplate(w, "home.html", nil)
-	if err != nil {
+	if err := t.ExecuteTemplate(w, "home.html", nil); err != nil {
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 	}
 }
 
-// githubHandler
+// githubHandler redirects users to the configured GitHub URL.
 func githubHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, os.Getenv("GITHUB_URL"), http.StatusSeeOther)
 }
 
-
-// bookmarksHandler
+// bookmarksHandler renders the bookmarks page template.
 func bookmarksHandler(w http.ResponseWriter, r *http.Request) {
 	t := parseTemplates(w)
 	if t == nil {
 		return
 	}
 
-	err := t.ExecuteTemplate(w, "bookmarks.html", nil)
-	if err != nil {
+	if err := t.ExecuteTemplate(w, "bookmarks.html", nil); err != nil {
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 	}
 }

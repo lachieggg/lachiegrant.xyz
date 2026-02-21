@@ -1,32 +1,22 @@
 package main
 
 import (
-	"io"
 	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-// TestStatusHandler
-func TestStatusHandler(t *testing.T) {
+// TestGetStatusContent verifies that getStatusContent returns non-empty HTML
+// by executing htop and merging it with the neofetch output.
+// This test requires htop and the neofetch.html file to be present.
+func TestGetStatusContent(t *testing.T) {
+	// Skip if required files don't exist (integration test dependency)
+	if _, err := os.Stat(nfHtmlPath); os.IsNotExist(err) {
+		t.Skipf("Skipping: required file %s not found", nfHtmlPath)
+	}
+
 	s, err := getStatusContent()
 	assert.Nil(t, err)
-	assert.NotEqual(t, 0, len(s))
-}
-
-// WriteStringToFile writes the provided content to a file with the given name.
-func WriteStringToFile(filename, content string) error {
-	file, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = io.WriteString(file, content)
-	if err != nil {
-		return err
-	}
-
-	return file.Sync()
+	assert.NotEmpty(t, s, "status content should not be empty")
 }

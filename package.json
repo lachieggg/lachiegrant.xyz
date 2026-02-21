@@ -19,10 +19,12 @@
   "homepage": "https://github.com/lachieggg/lachiegrant.xyz#readme",
   "dependencies": {
     "aws-sdk": "^2.1284.0",
-    "dotenv-webpack": "^7.1.1",
     "jquery": "^3.6.0",
-    "tiny-slider": "^2.9.4",
-    "webpack": "^5.96.1",
-    "webpack-cli": "^4.9.1"
+    "tiny-slider": "^2.9.4"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^8.1.1",
+    "webpack": "^5.105.2",
+    "webpack-cli": "^6.0.1"
   }
 }
