@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app
-    
+
   nginx:
     image: nginx
     container_name: webserver
