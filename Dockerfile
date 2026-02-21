@@ -1,4 +1,4 @@
-FROM golang:1.22-alpine
+FROM golang:1.25-alpine
 
 ARG BUILD_DATE
 COPY .ignore .
@@ -9,6 +9,6 @@ WORKDIR /app
 
 COPY go.mod go.sum ./
 RUN apk update
-RUN apk add procps htop aha neofetch
+RUN apk add procps htop aha
 
 CMD ["./scripts/start.sh"]

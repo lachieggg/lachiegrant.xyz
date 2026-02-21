@@ -1,65 +1,15 @@
-export BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+.DEFAULT_GOAL := help
+.PHONY: help build up down
 
-build:
-	go build -o bin/app src/*.go
+help: ## Show this help message
+	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-run: clean build
-	./bin/app
-
-.PHONY: kill
-kill:
-	docker kill $(docker ps -q)
-
-.PHONY: compile
-compile:
-	docker exec -it app go build -o /app/bin/app /app/src/
-
-.PHONY: remove
-remove:
-	docker volume prune -f && docker rm -f webserver && docker rm -f app && docker ps -a
-
-.PHONY: docker
-docker:
-	docker-compose up --build
-
-.PHONY: daemon
-daemon:
+build: ## Install dependencies and build frontend
+	npm install
 	npm run build
+
+up: build ## Build and start services in background
 	docker-compose up --build -d
 
-.PHONY: clean
-clean:
-	rm -f bin/app
-
-.PHONY: test
-test:
-	find . -type f -name "*.go" -exec dirname {} \; | sort -u | xargs -I {} go test -v {}
-
-.PHONY: testgo
-testgo:
-	go test $(go list ./...) -coverageprofile=coverage.out
-
-.PHONY: htmlcoverage
-htmlcoverage:
-	go tool cover --html=coverage.out
-
-.PHONY: coverage
-coverage:
-	go test ./... -covermode=atomic -coverprofile=coverage.out -coverpkg=./...
-	go tool cover -func=coverage.out
-
-.PHONY: help
-help:
-	@grep '^[^#[:space:]].*:' Makefile | awk -F':' '{print $$1}' | grep -Ev ".PHONY|export"
-
-.PHONY: tidyhtml
-tidyhtml:
-	find . -name "*.html" -exec tidy -m {} \;
-
-.PHONY: linthtml
-linthtml:
-	which eslint || brew install eslint
-
-.PHONY: certbot
-certbot:
-	./scripts/certbot.sh
+down: ## Stop all services
+	docker-compose down

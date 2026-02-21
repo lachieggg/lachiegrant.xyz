@@ -5,6 +5,7 @@ module.exports = {
     mode: 'production',
     entry: {
         'home': './src/js/home.js',
+	'index':'./src/js/index.js'
     },
     output: {
         filename: '[name].js',
