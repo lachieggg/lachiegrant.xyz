@@ -64,7 +64,6 @@ type PageData struct {
 func getPageData(data interface{}) PageData {
 	blog := os.Getenv(EnvEnableBlog) == FeatureEnabled
 	bookmarks := os.Getenv(EnvEnableBookmarks) == FeatureEnabled
-	logger.Printf("Debug: PageData - Blog: %v, Bookmarks: %v", blog, bookmarks)
 	return PageData{
 		EnableBlog:      blog,
 		EnableBookmarks: bookmarks,
