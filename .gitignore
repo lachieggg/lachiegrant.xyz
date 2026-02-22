@@ -18,10 +18,12 @@ bin/
 # Mac OS
 .DS_Store
 
-# Log files
+# Log & Test files
 *.log
 *.test
 *.out
+coverage.html
+coverage.out 
 
 # Acme
 **/.well-known
