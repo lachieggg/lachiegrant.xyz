@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
+{{ template "header.html" . }}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Understanding what money really is</title>
-</head>
-
-<body class="blog-body">
-    {{ template "app.html" . }}
+<div class="container blog-content">
     <h2 class="monospace-text"><u>Understanding what money really is</u></h2>
     <p class="blog">
         This essay is intended as a discussion that ties together a few different interests of mine in a creative way.
@@ -150,7 +143,8 @@
         bookkeeping, tracking how much everybody owes each other in goods and services. The government is an entity set
         up for the good of the people, it should never “owe” anybody anything, Perhaps if there is corruption or
         negligence then it could be argued the government should reimburse the tax payer, although this would never
-        happen in the current legal system of most democracies. To avoid all of these complex issues, governments should
+        happened in the current legal system of most democracies. To avoid all of these complex issues, governments
+        should
         not go into debt.
         <br>
         <br>
@@ -196,6 +190,10 @@
     <br>
     <br>
     <p class="monospace-text">Written start to finish<br>September 19th 2024</p>
-</body>
+</div>
 
-</html>
+<div class="container">
+    {{ template "footer.html" . }}
+</div>
+
+{{ template "scripts.html" . }}

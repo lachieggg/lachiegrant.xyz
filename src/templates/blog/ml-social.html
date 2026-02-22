@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
+{{ template "header.html" . }}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Machine Learning Social Media</title>
-</head>
-
-<body class="blog-body">
-    {{ template "app.html" . }}
+<div class="container blog-content">
     <h2 class="monospace-text"><u>Understanding machine learning powered social media</u></h2>
     <br>
     <br>
@@ -84,6 +77,10 @@
     <br>
     <br>
     <p class="monospace-text">Written March 2023 (last edited August 2024)</p>
-</body>
+</div>
 
-</html>
+<div class="container">
+    {{ template "footer.html" . }}
+</div>
+
+{{ template "scripts.html" . }}

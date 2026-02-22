@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html>
+{{ template "header.html" . }}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Why Australia should move to regulate Big Tech</title>
-</head>
-
-<body class="blog-body">
-    {{ template "app.html" . }}
+<div class="container blog-content">
     <h2 class="monospace-text"><u>Why Australia should move to regulate Big Tech</u></h2>
     <p class="blog">
         <br>
@@ -95,6 +88,10 @@
     <br>
     <br>
     <p class="monospace-text">Written August 2024 (last edited August 2024)</p>
-</body>
+</div>
 
-</html>
+<div class="container">
+    {{ template "footer.html" . }}
+</div>
+
+{{ template "scripts.html" . }}

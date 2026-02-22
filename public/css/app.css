@@ -1,34 +1,44 @@
 /* Content-Type: text/css */
 
 body {
-  padding: 100px;
+  background: lightblue;
+  margin: 0;
+  padding: 0 0 100px 0;
   text-align: center;
-  background: lightblue
 }
 
 .index-body {
   background: lightblue;
 }
 
+.main-content {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+
 .nav-link {
-  padding-right: .5rem!important;
-  padding-left: .5rem!important;
+  padding-right: .5rem !important;
+  padding-left: .5rem !important;
 }
 
-.blog-img, .book-img {
-  border-radius: 20px;
-  max-height: 30%;
-  max-width: 30%;
-}
-
+.blog-img,
+.book-img,
 .home-img {
   border-radius: 20px;
-  max-height: 30%;
-  max-width: 30%;
+  max-height: 300px;
+  /* Fixed height for consistency */
+  width: auto;
+  margin-bottom: 20px;
 }
 
-.blog {
+.blog-content {
+  padding-top: 100px;
+  padding-bottom: 50px;
   text-align: left;
+}
+
+.monospace-text {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 :root {
@@ -38,51 +48,22 @@ body {
 
 .navigation-bar {
   font-family: 'Courier New', Courier, monospace;
-  font: 'Courier New';
   font-size: 20px;
 }
 
-.navbar, .navbar-nav {
+.navbar,
+.navbar-nav {
   justify-content: center;
   flex-direction: row;
 }
 
-@media (max-width: 720px)
-{
-  .home-img, .blog-img, .book-img {
-    max-height: 80%;
-    max-width: 80%;
-  }
-}
+@media (max-width: 720px) {
 
-@media (pointer:none), (pointer:coarse) {
-  .index-body {
-    font-size: 36px;
-    font-weight: 100;
-  }
-
-  .blog-body {
-    font-size: 32px;
-    font-weight: 100;
-  }
-
-  .home-img, .book-img, .blog-img {
-    border-radius: 20px;
-    max-height: 30%;
-    max-width: 30%;
-  }
-
-  .navbar, .navbar-nav {
-    font-size: 32px;
-  }
-
-  .nav-item {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  h2 {
-    font-size: 30px;
+  .home-img,
+  .blog-img,
+  .book-img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
@@ -90,8 +71,3 @@ body {
   max-height: 20px;
   max-width: 20px;
 }
-
-.monospace-text {
-  font-family: 'Courier New', Courier, monospace;
-}
-

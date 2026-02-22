@@ -10,8 +10,10 @@ import (
 // blogHandler serves blog content. For /blog it renders the blog index page.
 // For /blog/{post-name} it renders the corresponding post template.
 func blogHandler(w http.ResponseWriter, r *http.Request) {
-	if os.Getenv(EnvEnableBlog) != FeatureEnabled {
-		logger.Printf("404: Blog disabled via feature flag")
+	val := os.Getenv(EnvEnableBlog)
+	logger.Printf("Debug: blogHandler check - ENABLE_BLOG: '%s', Expected: '%s'", val, FeatureEnabled)
+	if val != FeatureEnabled {
+		logger.Printf("404: Blog disabled via feature flag (value: '%s')", val)
 		http.NotFound(w, r)
 		return
 	}

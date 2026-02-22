@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html>
+{{ template "header.html" . }}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Blog</title>
-</head>
-
-<body class="blog-body">
-    {{ template "app.html" . }}
-    <script type="module" src="/js/generated/home.js"></script>
-    <div class="container"><img id="blog-img" class="blog-img" src="images/sample.png"></div>
+<div class="container main-content">
+    <div class="text-center">
+        <img id="blog-img" class="blog-img img-fluid" src="images/sample.png" alt="Blog Image">
+    </div>
     <br>
     <h2 class="monospace-text"><u>Blog</u></h2><br>
     <a href="/blog/ml-social"><b>understanding machine learning powered social media</b></a><br><br>
     <a href="/blog/big-tech-regulation"><b>why Australia should move to regulate big tech</b></a><br><br>
     <a href="/blog/understanding-money"><b>understanding what money really is</b></a><br><br>
+</div>
 
-    <br>
-    <hr>
-    {{ template "footer.html" }}
-</body>
+<div class="container">
+    {{ template "footer.html" . }}
+</div>
 
-</html>
+{{ template "scripts.html" . }}
