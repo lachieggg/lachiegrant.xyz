@@ -89,7 +89,7 @@ http {
         }
 
         # Instantly drop malicious probes
-        location ~* (\.php$|\.env$|\.git) {
+        location ~* (\.php$|\.env$|\.git|wp-admin|wp-includes|wp-login|xmlrpc) {
             return 444;
         }
 
