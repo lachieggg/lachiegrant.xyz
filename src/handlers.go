@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	FeatureEnabled  = "enabled"
-	FeatureDisabled = "disabled"
+	FeatureEnabled  = "1"
+	FeatureDisabled = "0"
 
 	EnvEnableBlog      = "ENABLE_BLOG"
 	EnvEnableBookmarks = "ENABLE_BOOKMARKS"
