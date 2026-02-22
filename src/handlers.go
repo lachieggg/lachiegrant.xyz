@@ -62,9 +62,12 @@ type PageData struct {
 
 // getPageData returns a PageData object with common feature flags populated.
 func getPageData(data interface{}) PageData {
+	blog := os.Getenv(EnvEnableBlog) == FeatureEnabled
+	bookmarks := os.Getenv(EnvEnableBookmarks) == FeatureEnabled
+	logger.Printf("Debug: PageData - Blog: %v, Bookmarks: %v", blog, bookmarks)
 	return PageData{
-		EnableBlog:      os.Getenv(EnvEnableBlog) == FeatureEnabled,
-		EnableBookmarks: os.Getenv(EnvEnableBookmarks) == FeatureEnabled,
+		EnableBlog:      blog,
+		EnableBookmarks: bookmarks,
 		Data:            data,
 	}
 }

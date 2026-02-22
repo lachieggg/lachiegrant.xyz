@@ -2,120 +2,131 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Bookmarks</title>
+        <meta charset="UTF-8">
+        <title>Bookmarks</title>
 </head>
 
 <body class="bookmarks-body">
-    {{ template "app.html" }}
-    <script type="module" src="/js/generated/home.js"></script>
-    <div class="container"><img id="book-img" class="book-img" src="images/sample.png"></div>
-    <br>
+        {{ template "app.html" . }}
+        <script type="module" src="/js/generated/home.js"></script>
+        <div class="container"><img id="book-img" class="book-img" src="images/sample.png"></div>
+        <br>
 
-    <h2 class="monospace-text"><u>Bookmarks</u></h2>
-    <h4 class="monospace-text">Stem</h4>
-    <a href="https://gwern.net/" target="_blank" rel="noopener noreferrer"><b>gwern</b></a><br>
-    <a href="https://youtu.be/XfcvX0P1b5g" target="_blank" rel="noopener noreferrer"><b>satoshi</b></a><br>
-    <a href="https://www.levels.fyi/" target="_blank" rel="noopener noreferrer"><b>levels fyi</b></a><br>
-    <a href="https://dustinbrett.com/" target="_blank" rel="noopener noreferrer"><b>daedalOS</b></a><br>
-    <a href="https://sre.google/sre-book/table-of-contents/" target="_blank" rel="noopener noreferrer"><b>google
-            sre</b></a><br>
-    <a href="https://www.youtube.com/watch?v=8DBhTXM_Br4" target="_blank" rel="noopener noreferrer"><b>knot
-            theory</b></a><br>
-    <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"><b>huggingface</b></a><br>
-    <a href="https://en.wikipedia.org/wiki/Doppler_effect" target="_blank" rel="noopener noreferrer"><b>doppler
-            effect</b></a><br>
-    <a href="https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank"
-        rel="noopener noreferrer"><b>3 blue 1
-            brown</b></a><br>
-    <a href="https://en.wikipedia.org/wiki/Network_science" target="_blank" rel="noopener noreferrer"><b>network
-            science</b></a><br>
-    <a href="https://www.youtube.com/shorts/FJtFZwbvkI4" target="_blank" rel="noopener noreferrer"><b>word
-            embeddings</b></a><br>
-    <a href="https://en.wikipedia.org/wiki/Wagon-wheel_effect" target="_blank" rel="noopener noreferrer"><b>wagon wheel
-            effect</b></a><br>
-    <a href="https://www.dailymotion.com/video/x223gx8" target="_blank" rel="noopener noreferrer"><b>fermat's last
-            theorem</b></a><br>
-    <a href="https://www.youtube.com/watch?v=A5w-dEgIU1M" target="_blank" rel="noopener noreferrer"><b>black-scholes
-            equation</b></a><br>
-    <a href="https://www.youtube.com/watch?v=tRaq4aYPzCc" target="_blank" rel="noopener noreferrer"><b>p-adic number
-            systems</b></a><br>
-    <a href="https://en.wikipedia.org/wiki/Preferential_attachment" target="_blank"
-        rel="noopener noreferrer"><b>preferential attachment</b></a><br>
-    <a href="https://www.youtube.com/watch?v=NdJ_y1c_j_I" target="_blank" rel="noopener noreferrer"><b>apple's widget
-            backdoor</b></a><br>
-    <a href="https://www.youtube.com/watch?v=0QczhVg5HaI" target="_blank" rel="noopener noreferrer"><b>universal
-            function approximators</b></a><br>
-    <br>
+        <h2 class="monospace-text"><u>Bookmarks</u></h2>
+        <h4 class="monospace-text">Stem</h4>
+        <a href="https://gwern.net/" target="_blank" rel="noopener noreferrer"><b>gwern</b></a><br>
+        <a href="https://youtu.be/XfcvX0P1b5g" target="_blank" rel="noopener noreferrer"><b>satoshi</b></a><br>
+        <a href="https://www.levels.fyi/" target="_blank" rel="noopener noreferrer"><b>levels fyi</b></a><br>
+        <a href="https://dustinbrett.com/" target="_blank" rel="noopener noreferrer"><b>daedalOS</b></a><br>
+        <a href="https://sre.google/sre-book/table-of-contents/" target="_blank" rel="noopener noreferrer"><b>google
+                        sre</b></a><br>
+        <a href="https://www.youtube.com/watch?v=8DBhTXM_Br4" target="_blank" rel="noopener noreferrer"><b>knot
+                        theory</b></a><br>
+        <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer"><b>huggingface</b></a><br>
+        <a href="https://en.wikipedia.org/wiki/Doppler_effect" target="_blank" rel="noopener noreferrer"><b>doppler
+                        effect</b></a><br>
+        <a href="https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" target="_blank"
+                rel="noopener noreferrer"><b>3 blue 1
+                        brown</b></a><br>
+        <a href="https://en.wikipedia.org/wiki/Network_science" target="_blank" rel="noopener noreferrer"><b>network
+                        science</b></a><br>
+        <a href="https://www.youtube.com/shorts/FJtFZwbvkI4" target="_blank" rel="noopener noreferrer"><b>word
+                        embeddings</b></a><br>
+        <a href="https://en.wikipedia.org/wiki/Wagon-wheel_effect" target="_blank" rel="noopener noreferrer"><b>wagon
+                        wheel
+                        effect</b></a><br>
+        <a href="https://www.dailymotion.com/video/x223gx8" target="_blank" rel="noopener noreferrer"><b>fermat's last
+                        theorem</b></a><br>
+        <a href="https://www.youtube.com/watch?v=A5w-dEgIU1M" target="_blank" rel="noopener noreferrer"><b>black-scholes
+                        equation</b></a><br>
+        <a href="https://www.youtube.com/watch?v=tRaq4aYPzCc" target="_blank" rel="noopener noreferrer"><b>p-adic number
+                        systems</b></a><br>
+        <a href="https://en.wikipedia.org/wiki/Preferential_attachment" target="_blank"
+                rel="noopener noreferrer"><b>preferential attachment</b></a><br>
+        <a href="https://www.youtube.com/watch?v=NdJ_y1c_j_I" target="_blank" rel="noopener noreferrer"><b>apple's
+                        widget
+                        backdoor</b></a><br>
+        <a href="https://www.youtube.com/watch?v=0QczhVg5HaI" target="_blank" rel="noopener noreferrer"><b>universal
+                        function approximators</b></a><br>
+        <br>
 
-    <h4 class="monospace-text">Psychology</h4>
-    <a href="https://www.youtube.com/watch?v=o0neRQzudzw" target="_blank" rel="noopener noreferrer"><b>carl
-            rogers</b></a><br>
-    <a href="https://www.goodreads.com/author/quotes/38285.C_G_Jung" target="_blank" rel="noopener noreferrer"><b>c.g.
-            jung quotes</b></a><br>
-    <a href="https://www.youtube.com/watch?v=rbowIy6kONY" target="_blank" rel="noopener noreferrer"><b>the basic
-            exercise</b></a><br>
-    <a href="https://www.goodreads.com/author/quotes/71193.Robert_L_Moore" target="_blank"
-        rel="noopener noreferrer"><b>robert moore quotes</b></a><br>
-    <a href="https://www.youtube.com/watch?v=WdmvoX1RZWA" target="_blank" rel="noopener noreferrer"><b>the hidden risks
-            of meditation</b></a><br>
-    <a href="https://www.goodreads.com/author/quotes/27903.Marie_Louise_von_Franz" target="_blank"
-        rel="noopener noreferrer"><b>marie-louise von franz quotes</b></a><br>
-    <br>
+        <h4 class="monospace-text">Psychology</h4>
+        <a href="https://www.youtube.com/watch?v=o0neRQzudzw" target="_blank" rel="noopener noreferrer"><b>carl
+                        rogers</b></a><br>
+        <a href="https://www.goodreads.com/author/quotes/38285.C_G_Jung" target="_blank"
+                rel="noopener noreferrer"><b>c.g.
+                        jung quotes</b></a><br>
+        <a href="https://www.youtube.com/watch?v=rbowIy6kONY" target="_blank" rel="noopener noreferrer"><b>the basic
+                        exercise</b></a><br>
+        <a href="https://www.goodreads.com/author/quotes/71193.Robert_L_Moore" target="_blank"
+                rel="noopener noreferrer"><b>robert moore quotes</b></a><br>
+        <a href="https://www.youtube.com/watch?v=WdmvoX1RZWA" target="_blank" rel="noopener noreferrer"><b>the hidden
+                        risks
+                        of meditation</b></a><br>
+        <a href="https://www.goodreads.com/author/quotes/27903.Marie_Louise_von_Franz" target="_blank"
+                rel="noopener noreferrer"><b>marie-louise von franz quotes</b></a><br>
+        <br>
 
-    <h4 class="monospace-text">Philosophy</h4>
-    <a href="https://www.goodreads.com/author/quotes/1501668.Alan_W_Watts" target="_blank"
-        rel="noopener noreferrer"><b>alan w. watts</b></a><br>
-    <a href="https://www.goodreads.com/author/quotes/1264.Jean_Baudrillard" target="_blank"
-        rel="noopener noreferrer"><b>jean baudrillard</b></a><br>
-    <a href="https://www.youtube.com/watch?v=zUuiqFGviOU" target="_blank" rel="noopener noreferrer"><b>[sisyphus 55]
-            hyperreality</b></a><br>
-    <a href="https://www.youtube.com/watch?v=KNOlqzMd2Zw" target="_blank" rel="noopener noreferrer"><b>[jaron lanier]
-            how to recreate the internet</b></a><br>
-    <a href="https://www.youtube.com/watch?v=Wu1mR8mTGkE" target="_blank" rel="noopener noreferrer"><b>[then and now]
-            what makes us postmodern</b></a><br>
-    <a href="https://web.mit.edu/allanmc/www/mcluhan.mediummessage.pdf" target="_blank"
-        rel="noopener noreferrer"><b>[marshal mcluhan] the medium is the message</b></a><br>
-    <br>
+        <h4 class="monospace-text">Philosophy</h4>
+        <a href="https://www.goodreads.com/author/quotes/1501668.Alan_W_Watts" target="_blank"
+                rel="noopener noreferrer"><b>alan w. watts</b></a><br>
+        <a href="https://www.goodreads.com/author/quotes/1264.Jean_Baudrillard" target="_blank"
+                rel="noopener noreferrer"><b>jean baudrillard</b></a><br>
+        <a href="https://www.youtube.com/watch?v=zUuiqFGviOU" target="_blank" rel="noopener noreferrer"><b>[sisyphus 55]
+                        hyperreality</b></a><br>
+        <a href="https://www.youtube.com/watch?v=KNOlqzMd2Zw" target="_blank" rel="noopener noreferrer"><b>[jaron
+                        lanier]
+                        how to recreate the internet</b></a><br>
+        <a href="https://www.youtube.com/watch?v=Wu1mR8mTGkE" target="_blank" rel="noopener noreferrer"><b>[then and
+                        now]
+                        what makes us postmodern</b></a><br>
+        <a href="https://web.mit.edu/allanmc/www/mcluhan.mediummessage.pdf" target="_blank"
+                rel="noopener noreferrer"><b>[marshal mcluhan] the medium is the message</b></a><br>
+        <br>
 
-    <h4 class="monospace-text">Philosophy <i>[Technology]</i></h4>
-    <a href="https://www.youtube.com/watch?v=k0RYQVkQmWU" target="_blank" rel="noopener noreferrer"><b>revolution
-            os</b></a><br>
-    <a href="https://www.outragemachine.org/" target="_blank" rel="noopener noreferrer"><b>outrage machine</b></a><br>
-    <a href="https://consilienceproject.org/" target="_blank" rel="noopener noreferrer"><b>consillience
-            project</b></a><br>
-    <a href="https://youtu.be/cCvf2DZzKX0" target="_blank" rel="noopener noreferrer"><b>who owns the future</b></a><br>
-    <a href="https://www.youtube.com/watch?v=J54k7WrbfMg" target="_blank" rel="noopener noreferrer"><b>[sean parker]
-            feedback loops</b></a><br>
-    <a href="https://www.humanetech.com/" target="_blank" rel="noopener noreferrer"><b>[tristan harris] humane
-            technology</b></a><br>
-    <a href="https://www.youtube.com/watch?v=csubiPlvFWk&t=6m24s" target="_blank" rel="noopener noreferrer"><b>[jonathon
-            haidt] smartphones & social media</b></a><br>
-    <br>
+        <h4 class="monospace-text">Philosophy <i>[Technology]</i></h4>
+        <a href="https://www.youtube.com/watch?v=k0RYQVkQmWU" target="_blank" rel="noopener noreferrer"><b>revolution
+                        os</b></a><br>
+        <a href="https://www.outragemachine.org/" target="_blank" rel="noopener noreferrer"><b>outrage
+                        machine</b></a><br>
+        <a href="https://consilienceproject.org/" target="_blank" rel="noopener noreferrer"><b>consillience
+                        project</b></a><br>
+        <a href="https://youtu.be/cCvf2DZzKX0" target="_blank" rel="noopener noreferrer"><b>who owns the
+                        future</b></a><br>
+        <a href="https://www.youtube.com/watch?v=J54k7WrbfMg" target="_blank" rel="noopener noreferrer"><b>[sean parker]
+                        feedback loops</b></a><br>
+        <a href="https://www.humanetech.com/" target="_blank" rel="noopener noreferrer"><b>[tristan harris] humane
+                        technology</b></a><br>
+        <a href="https://www.youtube.com/watch?v=csubiPlvFWk&t=6m24s" target="_blank"
+                rel="noopener noreferrer"><b>[jonathon
+                        haidt] smartphones & social media</b></a><br>
+        <br>
 
-    <h4 class="monospace-text">Language</h4>
-    <a href="https://jisho.org/" target="_blank" rel="noopener noreferrer"><b>jisho</b></a><br>
-    <a href="https://gwern.net/spaced-repetition" target="_blank" rel="noopener noreferrer"><b>spaced
-            repetition</b></a><br>
-    <a href="https://www.youtube.com/watch?v=pPKiMlCOeMc" target="_blank" rel="noopener noreferrer"><b>[trenton] passive
-            listening</b></a><br>
-    <a href="https://www.youtube.com/watch?v=NiTsduRreug" target="_blank" rel="noopener noreferrer"><b>[krashen]
-            immersion learning</b></a><br>
-    <br>
+        <h4 class="monospace-text">Language</h4>
+        <a href="https://jisho.org/" target="_blank" rel="noopener noreferrer"><b>jisho</b></a><br>
+        <a href="https://gwern.net/spaced-repetition" target="_blank" rel="noopener noreferrer"><b>spaced
+                        repetition</b></a><br>
+        <a href="https://www.youtube.com/watch?v=pPKiMlCOeMc" target="_blank" rel="noopener noreferrer"><b>[trenton]
+                        passive
+                        listening</b></a><br>
+        <a href="https://www.youtube.com/watch?v=NiTsduRreug" target="_blank" rel="noopener noreferrer"><b>[krashen]
+                        immersion learning</b></a><br>
+        <br>
 
-    <h4 class="monospace-text">Finance</h4>
-    <a href="https://river.com/learn/terms/c/cantillon-effect/" target="_blank" rel="noopener noreferrer"><b>cantillon
-            effect</b></a><br>
-    <a href="https://www.youtube.com/watch?v=bZ6HodKDxJE" target="_blank" rel="noopener noreferrer"><b>the debt
-            paradox</b></a><br>
-    <a href="https://www.youtube.com/watch?v=-raK5VyB5xw" target="_blank" rel="noopener noreferrer"><b>latency
-            arbitrage</b></a><br>
-    <a href="https://www.ineteconomics.org/" target="_blank" rel="noopener noreferrer"><b>new economic
-            thinking</b></a><br>
-    <br>
+        <h4 class="monospace-text">Finance</h4>
+        <a href="https://river.com/learn/terms/c/cantillon-effect/" target="_blank"
+                rel="noopener noreferrer"><b>cantillon
+                        effect</b></a><br>
+        <a href="https://www.youtube.com/watch?v=bZ6HodKDxJE" target="_blank" rel="noopener noreferrer"><b>the debt
+                        paradox</b></a><br>
+        <a href="https://www.youtube.com/watch?v=-raK5VyB5xw" target="_blank" rel="noopener noreferrer"><b>latency
+                        arbitrage</b></a><br>
+        <a href="https://www.ineteconomics.org/" target="_blank" rel="noopener noreferrer"><b>new economic
+                        thinking</b></a><br>
+        <br>
 
-    <hr>
-    {{ template "footer.html" }}
+        <hr>
+        {{ template "footer.html" }}
 </body>
 
 </html>

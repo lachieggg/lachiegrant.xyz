@@ -1,63 +1,52 @@
 const URL = 'images/';
-const IMAGES = process.env.PICTURES.split(',');
-const BLOG_IMG = process.env.BLOG_IMG;
-const BOOK_IMG = process.env.BOOK_IMG;
-const HOME_IMG = process.env.HOME_IMG;
+const IMAGES = process.env.PICTURES ? process.env.PICTURES.split(',') : [];
 const HOME_ID = "home-img";
 const BLOG_ID = "blog-img";
 const BOOK_ID = "book-img";
 const HOME_BTN = "home-img-btn";
 
-setPicture(HOME_ID,HOME_IMG);
-setPicture(BLOG_ID,BLOG_IMG);
-setPicture(BOOK_ID,BOOK_IMG);
+// Set initial random images
+setPicture(HOME_ID, "");
+setPicture(BLOG_ID, "");
+setPicture(BOOK_ID, "");
 
-
-// setPicture
-// id   -> the id of the element to set 
-// name -> the filename of the image
 function setPicture(id, name) {
-    if (name == "") {
-        name = getRandomImage()
+    if (!name) {
+        name = getRandomImage();
     }
-    // Get the image URL from the name
-    var imageUrl = URL + name;
+    if (!name) return;
 
+    const imageUrl = URL + name;
     try {
-        var image = document.getElementById(id);
-        image.src = imageUrl;
+        const image = document.getElementById(id);
+        if (image) {
+            image.src = imageUrl;
+        }
     } catch (err) {
-        // no image on page
-        // skipping
+        console.warn("Could not set image for id:", id);
     }
 }
 
-// getRandomImage returns a random image
-// filename.
 function getRandomImage() {
-    var randomIndex = Math.floor(Math.random() * IMAGES.length);
-    return IMAGES[randomIndex]
+    if (IMAGES.length === 0) return "";
+    const randomIndex = Math.floor(Math.random() * IMAGES.length);
+    return IMAGES[randomIndex].trim();
 }
 
 function setRandomImage(id) {
-    imageName = getRandomImage()
-
-    // Get a random index within the array length
-    setPicture(HOME_ID,);
-    if(imageName == "") {
-        setRandomImage(id);
+    const imageName = getRandomImage();
+    if (imageName) {
+        setPicture(id, imageName);
     }
 }
 
-// createRandomImageSetter creates an image
-// setter function for an element id 
 function createRandomImageSetter(id) {
-    return function() {
-        setRandomImage(id) 
+    return function () {
+        setRandomImage(id)
     }
 }
 
-var homeButton = document.getElementById(HOME_BTN);
-if(homeButton != null) {
+const homeButton = document.getElementById(HOME_BTN);
+if (homeButton) {
     homeButton.addEventListener('click', createRandomImageSetter(HOME_ID));
 }

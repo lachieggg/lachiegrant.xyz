@@ -13,8 +13,8 @@ build: ## Install dependencies and build frontend
 
 reset: build down up ## Stop, rebuild, and restart services
 
-reload: ## Restart only the app container to reload environment variables
-	docker-compose restart app
+reload: build ## Rebuild frontend and then rebuild/restart the Go app
+	docker-compose up -d --build app
 
 test: ## Run backend unit tests
 	go test -v ./src/...

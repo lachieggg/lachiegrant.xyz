@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Machine Learning Social Media</title>
+    <meta charset="UTF-8">
+    <title>Machine Learning Social Media</title>
 </head>
+
 <body class="blog-body">
-{{ template "app.html" }}
-<h2 class="monospace-text"><u>Understanding machine learning powered social media</u></h2>
-<br>
-<br>
-<p class="blog">
-I have been enjoying some A.I. podcasts recently.
-Particularly interesting were some interviews with Donald Knuth,
-Michael I. Jordan, David Silver, and Jaron Lanier. It was interesting to
-get some background on the latest developments in A.I. first, and
-then to add the more philosophical perspectives that Lanier has.
-Especially in the context of social media use and the impacts it 
-has on society. Lanier appears to be polymath. He
-has a rich understanding of Computer Science and the history of 
-the Internet, he has worked at Google and currently works at Microsoft
-as an Interdisciplinary Scientist. He is also a visual
-artist, musician, and is able to articulate sophisticated philosophical
-and moral perspectives.<br>
-<br>
-The consensus among technologists who focus on the ethics of their
-craft is that having machine learning algorithms that optimise
-for metrics such as  "time on site" and "ad revenue" leads to
-severe consequences for society when it scales to
-billions of people. The algorithms will tend to serve
-content that brings up certain negative emotions, 
-because statistically that drives more engagement on the platforms.
-The algorithms learn that showing emotionally provocative content is 
-the best action to take when pursuing the objective function of maximising
-ad revenue. From a psychological perspective this is obviously because
-humans have a negativity bias. Posts that make us angry, anxious, are more 
-likely to grab our attention in a way that causes us to engage (comment, like, react),
-because we have a whole neurological system designed for responding to threatening stimuli.<br>
-<br>
-Machine learning algorithms are in most cases, opaque, in that the
-engineers of such a system do not understand exactly why the
-algorithm will produce a particular result. Specifically,
-Artificial Neural Networks that are used in a variety of
-applications including social media, have what is called a "hidden
-layer", which is referred to as such because it is impossible to explain
-how the neural network arrives at a particular
-output given some set of inputs. For instance, we use neural
-networks to identify whether an image contains a cat or not, say
-for searching through a database of pictures on Google Images. In
-this case, the algorithm might give a yes or no response to the
-input image, but it is not necessarily clear why the algorithm 
-produced that output. This is because the maths behind the algorithm is
-a lot of matrix multiplications and computation that 
-doesn't produce a human readable explanation of why the program ended 
-up with the result "yes it is a cat". <br>
-<br>
-Back to the topic of social media, companies use
-Machine Learning to work out what content they should serve to their users to
-maximise certain metrics, like how long a user will spend
-on Facebook. The feed is different for every user, but every time a
-user loads up Facebook or TikTok, even information like how long they spent
-on the site, what posts they liked, what posts they spent more or
-less time looking at, serve as useful data for the company in
-training their models to predict and manipulate future
-behaviour.<br>
-<br>
-This is a very deep topic and spans multiple domains, and to cover it
-in detail is beyond the medium of a blog post. The key takeaway
-is that advertising is the life blood of the social media
-platforms, and they optimise their algorithms around ad revenue.
-As a result of that, the content that they serve up is subject to various
-pitfalls of ML algorithms, including things like filter bubbles, 
-feedback loops, echo chambers, and bias. Part of the reason the past decade
-has been filled with political unrest, is 
-because these algorithms, the inner workings of which are opaque to the engineer 
-and the user,  are serving up negative and polarising content. That's not what they are
-explicitly designed to do, but it is a by product of a set of incentives that aim 
-to maximise for time on site and revenue, and not the wellbeing of the users.</p>
-<br>
-<b>Lachie</b>
-<br>
-<br>
-<p class="monospace-text">Written March 2023 (last edited August 2024)</p>
+    {{ template "app.html" . }}
+    <h2 class="monospace-text"><u>Understanding machine learning powered social media</u></h2>
+    <br>
+    <br>
+    <p class="blog">
+        I have been enjoying some A.I. podcasts recently.
+        Particularly interesting were some interviews with Donald Knuth,
+        Michael I. Jordan, David Silver, and Jaron Lanier. It was interesting to
+        get some background on the latest developments in A.I. first, and
+        then to add the more philosophical perspectives that Lanier has.
+        Especially in the context of social media use and the impacts it
+        has on society. Lanier appears to be polymath. He
+        has a rich understanding of Computer Science and the history of
+        the Internet, he has worked at Google and currently works at Microsoft
+        as an Interdisciplinary Scientist. He is also a visual
+        artist, musician, and is able to articulate sophisticated philosophical
+        and moral perspectives.<br>
+        <br>
+        The consensus among technologists who focus on the ethics of their
+        craft is that having machine learning algorithms that optimise
+        for metrics such as "time on site" and "ad revenue" leads to
+        severe consequences for society when it scales to
+        billions of people. The algorithms will tend to serve
+        content that brings up certain negative emotions,
+        because statistically that drives more engagement on the platforms.
+        The algorithms learn that showing emotionally provocative content is
+        the best action to take when pursuing the objective function of maximising
+        ad revenue. From a psychological perspective this is obviously because
+        humans have a negativity bias. Posts that make us angry, anxious, are more
+        likely to grab our attention in a way that causes us to engage (comment, like, react),
+        because we have a whole neurological system designed for responding to threatening stimuli.<br>
+        <br>
+        Machine learning algorithms are in most cases, opaque, in that the
+        engineers of such a system do not understand exactly why the
+        algorithm will produce a particular result. Specifically,
+        Artificial Neural Networks that are used in a variety of
+        applications including social media, have what is called a "hidden
+        layer", which is referred to as such because it is impossible to explain
+        how the neural network arrives at a particular
+        output given some set of inputs. For instance, we use neural
+        networks to identify whether an image contains a cat or not, say
+        for searching through a database of pictures on Google Images. In
+        this case, the algorithm might give a yes or no response to the
+        input image, but it is not necessarily clear why the algorithm
+        produced that output. This is because the maths behind the algorithm is
+        a lot of matrix multiplications and computation that
+        doesn't produce a human readable explanation of why the program ended
+        up with the result "yes it is a cat". <br>
+        <br>
+        Back to the topic of social media, companies use
+        Machine Learning to work out what content they should serve to their users to
+        maximise certain metrics, like how long a user will spend
+        on Facebook. The feed is different for every user, but every time a
+        user loads up Facebook or TikTok, even information like how long they spent
+        on the site, what posts they liked, what posts they spent more or
+        less time looking at, serve as useful data for the company in
+        training their models to predict and manipulate future
+        behaviour.<br>
+        <br>
+        This is a very deep topic and spans multiple domains, and to cover it
+        in detail is beyond the medium of a blog post. The key takeaway
+        is that advertising is the life blood of the social media
+        platforms, and they optimise their algorithms around ad revenue.
+        As a result of that, the content that they serve up is subject to various
+        pitfalls of ML algorithms, including things like filter bubbles,
+        feedback loops, echo chambers, and bias. Part of the reason the past decade
+        has been filled with political unrest, is
+        because these algorithms, the inner workings of which are opaque to the engineer
+        and the user, are serving up negative and polarising content. That's not what they are
+        explicitly designed to do, but it is a by product of a set of incentives that aim
+        to maximise for time on site and revenue, and not the wellbeing of the users.
+    </p>
+    <br>
+    <b>Lachie</b>
+    <br>
+    <br>
+    <p class="monospace-text">Written March 2023 (last edited August 2024)</p>
 </body>
+
 </html>
