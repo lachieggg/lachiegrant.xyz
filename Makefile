@@ -9,7 +9,7 @@ build: ## Install dependencies and build frontend
 	npm run build
 
 up: build ## Build and start services in background
-	docker-compose up --build -d
+	BUILD_DATE=$$(date -u +'%Y-%m-%dT%H:%M:%SZ') docker-compose up --build -d
 
 down: ## Stop all services
 	docker-compose down

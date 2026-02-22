@@ -24,7 +24,6 @@ func main() {
 	// Register HTTP routes with logging middleware
 	http.HandleFunc("/", middlewareFunc(indexHandler))
 	http.HandleFunc("/code", middlewareFunc(githubHandler))
-	http.HandleFunc("/status", middlewareFunc(statusHandler))
 	http.HandleFunc("/blog", middlewareFunc(blogHandler))
 	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Matches /blog/{post-name}
 	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
