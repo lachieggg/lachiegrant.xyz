@@ -1,4 +1,4 @@
-.PHONY: help up down local-certs certbot test test-go test-cov test-js reload logs bans
+.PHONY: help up down local-certs certbot test test-go test-cov test-js test-nginx reload logs bans update-bots
 .DEFAULT_GOAL := help
 
 up: build ## Build and start services in background
@@ -24,13 +24,16 @@ test: ## Run all tests
 	@go test -v ./src/... && GO_OK=1 || GO_OK=0; \
 	echo "\n--- 🔧 Running JS Tests 🔧 ---"; \
 	npm test && JS_OK=1 || JS_OK=0; \
+	echo "\n--- 🔧 Linting Nginx Config 🔧 ---"; \
+	$(MAKE) test-nginx && NGINX_OK=1 || NGINX_OK=0; \
 	echo "-------------------------------"; \
 	echo "         TEST SUMMARY          "; \
 	echo "-------------------------------"; \
 	if [ $$GO_OK -eq 1 ]; then echo "✅ Go tests OK"; else echo "❌ Go tests failed 😵"; fi; \
 	if [ $$JS_OK -eq 1 ]; then echo "✅ JS tests OK"; else echo "❌ JS tests failed 😵"; fi; \
+	if [ $$NGINX_OK -eq 1 ]; then echo "✅ Nginx tests OK"; else echo "❌ Nginx tests failed 😵"; fi; \
 	echo "-------------------------------"; \
-	if [ $$GO_OK -eq 0 ] || [ $$JS_OK -eq 0 ]; then exit 1; fi
+	if [ $$GO_OK -eq 0 ] || [ $$JS_OK -eq 0 ] || [ $$NGINX_OK -eq 0 ]; then exit 1; fi
 
 test-go: ## Run backend unit tests
 	go test -v ./src/...
@@ -42,6 +45,9 @@ test-cov: ## Show backend coverage in browser
 
 test-js: ## Run frontend javascript tests
 	npm test
+
+test-nginx: ## Validate Nginx configuration syntax natively in the running webserver container
+	@docker exec webserver /bin/sh -c "envsubst '\$$ALLOWED_HOSTS' < /etc/nginx/nginx.conf.template > /tmp/nginx-test.conf && nginx -t -c /tmp/nginx-test.conf"
 
 certbot: ## Run certbot script for production SSL certificates
 	./scripts/certbot.sh

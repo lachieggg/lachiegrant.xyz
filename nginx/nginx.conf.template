@@ -18,9 +18,28 @@ http {
     # Dedicated access log for fail2ban to parse without breaking docker stdout
     access_log /var/log/custom_logs/access.log combined;
 
-    # Rate limiting and connection limiting
-    limit_req_zone $binary_remote_addr zone=rate_limit_zone:10m rate=2r/s;
+    # ── Rate limiting ─────────────────────────────────────────────────────────────
+    limit_req_zone $binary_remote_addr zone=general:10m rate=30r/m;
+    limit_req_status 429;
     limit_conn_zone $binary_remote_addr zone=addr:10m;
+
+    # ── Bad user agents (Additional list) ─────────────────────────────────────────
+    map $http_user_agent $bad_agent {
+        default                     0;
+        ~*masscan                   1;
+        ~*nikto                     1;
+        ~*sqlmap                    1;
+        ~*nmap                      1;
+        ~*zgrab                     1;
+        ~*nuclei                    1;
+        ~*dirbuster                 1;
+        ~*gobuster                  1;
+        ~*wfuzz                     1;
+        ~*python-requests           1;
+        ~*go-http-client            1;
+        ~*libwww-perl               1;
+        ""                          1;  # empty user agent
+    }
 
     # Define upstream servers
     upstream app {
@@ -50,7 +69,7 @@ http {
         }
 
         location / {
-            limit_req zone=rate_limit_zone burst=2 nodelay;
+            limit_req zone=general burst=10 nodelay;
             limit_conn addr 3;
             return 301 https://$host$request_uri;
         }
@@ -80,16 +99,38 @@ http {
         ssl_prefer_server_ciphers on;
         ssl_session_cache shared:SSL:10m;
         ssl_session_timeout 10m;
-        ssl_stapling off;
+        ssl_stapling on; # Enabled OCSP stapling for performance and privacy
         resolver 1.1.1.1 valid=300s;
 
-        # Block explicitly bad bots
-        if ($bad_bot) {
+        # Security Headers
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+
+        # ── Block HTTP methods you don't use ──────────────────────────────────────
+        if ($request_method !~ ^(GET|POST|PUT|PATCH|DELETE|OPTIONS|HEAD)$) {
             return 444;
         }
 
-        # Instantly drop malicious probes
-        location ~* (\.php$|\.env$|\.git|wp-admin|wp-includes|wp-login|xmlrpc) {
+        # ── Block bad agents ──────────────────────────────────────────────────────
+        if ($bad_bot) {
+            return 444;
+        }
+        if ($bad_agent) {
+            return 444;
+        }
+
+        # ── Exploit/CMS probes ────────────────────────────────────────────────────
+        location ~* (\.php$|\.env$|\.git|wp-admin|wp-includes|wp-login|xmlrpc|\.well-known/(?!acme-challenge|pki-validation)|setup\.cgi|shell\.php|eval-stdin|phpmyadmin|pma|myadmin|mysql|adminer|\.aspx?$|\.jsp$|/cgi-bin/|/cgi/) {
+            return 444;
+        }
+
+        # ── Backup & config file probes ───────────────────────────────────────────
+        location ~* \.(bak|backup|old|orig|save|swp|tmp|sql|db|sqlite|dump|tar|tar\.gz|tgz|zip|rar|7z|log|logs|pem|key|crt|cert|p12|pfx|cfg|conf|config|ini|yaml|yml|toml|DS_Store)$ {
+            return 444;
+        }
+
+        # ── Common scanner paths ──────────────────────────────────────────────────
+        location ~* (/actuator|/\.aws|/\.azure|/config\.json|/config\.js|/package\.json|/composer\.|/Dockerfile|/docker-compose|/\.htaccess|/\.htpasswd|/server-status|/server-info|/telescope|/horizon|/__debugbar|/_profiler|/vendor/|/node_modules/) {
             return 444;
         }
 
@@ -118,20 +159,18 @@ http {
 
         location ~* \.css$ {
             root /etc/nginx/html/public;
-            add_header Content-Type "text/css";
             expires 1y;
             add_header Cache-Control "public";
         }
 
         location ~* \.js$ {
             root /etc/nginx/html/public;
-            add_header Content-Type "application/javascript";
             expires 1y;
             add_header Cache-Control "public";
         }
 
         location / {
-            limit_req zone=rate_limit_zone burst=2 nodelay;
+            limit_req zone=general burst=10 nodelay;
             limit_conn addr 3;
             proxy_intercept_errors on;
             proxy_pass http://app;
