@@ -22,7 +22,7 @@ services:
       - "443:443"
     restart: unless-stopped
     environment:
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-lachiegrant.xyz www.lachiegrant.xyz}
     volumes:
       - ./nginx.conf.template:/etc/nginx/nginx.conf.template:ro
       - ./public:/etc/nginx/html/public
