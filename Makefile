@@ -14,6 +14,8 @@ up: build ## Build and start services in background
 down: ## Stop all services
 	docker-compose down
 
+reset: build down up
+
 certs: ## Generate self-signed SSL certificates for local development
 	mkdir -p ./tls/nginx/keys ./tls/nginx/certs
 	openssl req -x509 -nodes -days 365 -newkey rsa:4096 \

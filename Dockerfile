@@ -1,7 +1,8 @@
 FROM golang:1.26-alpine
 
+# BUILD_DATE used here to invalidate cache for
+# subsequent layers when it changes.
 ARG BUILD_DATE
-# BUILD_DATE is used here to invalidate cache for subsequent layers when it changes.
 RUN echo "Build Date: $BUILD_DATE" > /dev/null
 
 WORKDIR /app
