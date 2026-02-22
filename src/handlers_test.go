@@ -64,7 +64,7 @@ func TestHandlers(t *testing.T) {
 			name:           "Redirect: GitHub (Valid)",
 			url:            "/code",
 			handler:        githubHandler,
-			envVars:        map[string]string{"GITHUB_URL": "https://github.com/example"},
+			envVars:        map[string]string{EnvGithubURL: "https://github.com/example"},
 			expectedStatus: http.StatusSeeOther,
 			expectedHeader: map[string]string{"Location": "https://github.com/example"},
 		},
@@ -72,7 +72,7 @@ func TestHandlers(t *testing.T) {
 			name:           "Redirect: GitHub (Empty)",
 			url:            "/code",
 			handler:        githubHandler,
-			envVars:        map[string]string{"GITHUB_URL": ""},
+			envVars:        map[string]string{EnvGithubURL: ""},
 			expectedStatus: http.StatusSeeOther,
 		},
 
@@ -81,7 +81,7 @@ func TestHandlers(t *testing.T) {
 			name:           "File: Resume (Success)",
 			url:            "/resume",
 			handler:        resumeHandler,
-			envVars:        map[string]string{"RESUME_PATH": "test-resume.pdf"},
+			envVars:        map[string]string{EnvResumePath: "test-resume.pdf"},
 			expectedStatus: http.StatusOK,
 			expectedBody:   testContent,
 		},
@@ -89,22 +89,52 @@ func TestHandlers(t *testing.T) {
 			name:           "File: Resume (Traversal Attack)",
 			url:            "/resume",
 			handler:        resumeHandler,
-			envVars:        map[string]string{"RESUME_PATH": "../main.go"},
+			envVars:        map[string]string{EnvResumePath: "../main.go"},
 			expectedStatus: http.StatusForbidden,
 		},
 		{
 			name:           "File: Resume (System Path Attack)",
 			url:            "/resume",
 			handler:        resumeHandler,
-			envVars:        map[string]string{"RESUME_PATH": "/etc/passwd"},
+			envVars:        map[string]string{EnvResumePath: "/etc/passwd"},
 			expectedStatus: http.StatusNotFound,
 		},
 		{
 			name:           "File: Resume (Not Found)",
 			url:            "/resume",
 			handler:        resumeHandler,
-			envVars:        map[string]string{"RESUME_PATH": "missing.pdf"},
+			envVars:        map[string]string{EnvResumePath: "missing.pdf"},
 			expectedStatus: http.StatusNotFound,
+		},
+
+		// Feature Flag Tests
+		{
+			name:           "Feature: Blog (Disabled)",
+			url:            "/blog",
+			handler:        blogHandler,
+			envVars:        map[string]string{EnvEnableBlog: FeatureDisabled},
+			expectedStatus: http.StatusNotFound,
+		},
+		{
+			name:           "Feature: Blog (Enabled)",
+			url:            "/blog",
+			handler:        blogHandler,
+			envVars:        map[string]string{EnvEnableBlog: FeatureEnabled},
+			expectedStatus: http.StatusOK,
+		},
+		{
+			name:           "Feature: Bookmarks (Disabled)",
+			url:            "/bookmarks",
+			handler:        bookmarksHandler,
+			envVars:        map[string]string{EnvEnableBookmarks: FeatureDisabled},
+			expectedStatus: http.StatusNotFound,
+		},
+		{
+			name:           "Feature: Bookmarks (Enabled)",
+			url:            "/bookmarks",
+			handler:        bookmarksHandler,
+			envVars:        map[string]string{EnvEnableBookmarks: FeatureEnabled},
+			expectedStatus: http.StatusOK,
 		},
 	}
 
@@ -126,7 +156,7 @@ func TestHandlers(t *testing.T) {
 
 			// Custom assertion for IndexHandler (it might return 500 if templates aren't found, which is fine)
 			if tt.handler == nil { // Placeholder for indexHandler logic in test if necessary
-			} else if tt.name == "Page: Home (Exists)" {
+			} else if tt.name == "Page: Home (Exists)" || tt.name == "Feature: Blog (Enabled)" || tt.name == "Feature: Bookmarks (Enabled)" {
 				assert.NotEqual(t, http.StatusNotFound, rec.Code)
 			} else {
 				assert.Equal(t, tt.expectedStatus, rec.Code)

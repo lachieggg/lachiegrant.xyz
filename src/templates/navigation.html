@@ -14,8 +14,12 @@
             <div class="navbar-collapse collapse d-flex justify-content-center">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    {{ if .EnableBlog }}
                     <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                    {{ end }}
+                    {{ if .EnableBookmarks }}
                     <li class="nav-item"><a class="nav-link" href="/bookmarks">Bookmarks</a></li>
+                    {{ end }}
                     <li class="nav-item"><a class="nav-link" href="/code" target="_blank"
                             rel="noopener noreferrer">Code</a></li>
                     <li class="nav-item"><a class="nav-link" href="/resume" target="_blank"

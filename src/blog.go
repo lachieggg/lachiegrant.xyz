@@ -3,12 +3,19 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 )
 
 // blogHandler serves blog content. For /blog it renders the blog index page.
 // For /blog/{post-name} it renders the corresponding post template.
 func blogHandler(w http.ResponseWriter, r *http.Request) {
+	if os.Getenv(EnvEnableBlog) != FeatureEnabled {
+		logger.Printf("404: Blog disabled via feature flag")
+		http.NotFound(w, r)
+		return
+	}
+
 	path := r.URL.Path
 	segments := strings.Split(path, "/")
 
@@ -22,12 +29,12 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 
 	var templateName string
 	if postName == "" {
-		templateName = "blog.html"
+		templateName = TmplBlogIndex
 	} else {
 		templateName = fmt.Sprintf("%s.html", postName)
 	}
 
-	err := t.ExecuteTemplate(w, templateName, nil)
+	err := t.ExecuteTemplate(w, templateName, getPageData(nil))
 	if err != nil {
 		if strings.Contains(err.Error(), "incomplete or empty template") || strings.Contains(err.Error(), "is not defined") {
 			logger.Printf("404: Blog template %s not found", templateName)

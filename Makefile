@@ -1,4 +1,4 @@
-.PHONY: help up down local-certs certbot test
+.PHONY: help up down local-certs certbot test reload
 .DEFAULT_GOAL := help
 
 up: build ## Build and start services in background
@@ -12,6 +12,9 @@ build: ## Install dependencies and build frontend
 	npm run build
 
 reset: build down up ## Stop, rebuild, and restart services
+
+reload: ## Restart only the app container to reload environment variables
+	docker-compose restart app
 
 test: ## Run backend unit tests
 	go test -v ./src/...
