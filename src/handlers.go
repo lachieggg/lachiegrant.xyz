@@ -95,11 +95,11 @@ func resumeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Clean and resolve the absolute path
-	absPath := filepath.Join(wd, filepath.Clean(resumePath))
+	// Clean and resolve the absolute path relative to the 'public' directory
 	publicDir := filepath.Join(wd, "public")
+	absPath := filepath.Join(publicDir, filepath.Clean(resumePath))
 
-	// Security Check: Ensure the file is within the 'public' directory
+	// Security Check: Ensure the resolved path is still within the 'public' directory
 	if !strings.HasPrefix(absPath, publicDir) {
 		logger.Printf("Security Warning: Unauthorized access attempt to %s", absPath)
 		http.Error(w, "Forbidden", http.StatusForbidden)
