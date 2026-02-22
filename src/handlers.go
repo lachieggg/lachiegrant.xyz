@@ -42,6 +42,7 @@ func parseTemplates(w http.ResponseWriter) *template.Template {
 // returns 404 for any other path (since "/" matches all unhandled routes).
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
+		logger.Printf("404: %s not found (matched index catch-all)", r.URL.Path)
 		http.NotFound(w, r)
 		return
 	}
@@ -81,8 +82,24 @@ func bookmarksHandler(w http.ResponseWriter, r *http.Request) {
 func resumeHandler(w http.ResponseWriter, r *http.Request) {
 	resumePath := os.Getenv("RESUME_PATH")
 	if resumePath == "" {
+		logger.Printf("Error: RESUME_PATH environment variable not set")
 		http.Error(w, "Resume path not configured", http.StatusInternalServerError)
 		return
 	}
-	http.ServeFile(w, r, resumePath)
+
+	absPath, err := filepath.Abs(resumePath)
+	if err != nil {
+		logger.Printf("Error resolving resume path: %v", err)
+		http.Error(w, "Error resolving resume path", http.StatusInternalServerError)
+		return
+	}
+
+	if _, err := os.Stat(absPath); os.IsNotExist(err) {
+		logger.Printf("404: Resume file not found at %s", absPath)
+		http.NotFound(w, r)
+		return
+	}
+
+	logger.Printf("Serving resume from: %s", absPath)
+	http.ServeFile(w, r, absPath)
 }

@@ -30,8 +30,8 @@ func main() {
 	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
 	http.HandleFunc("/resume", middlewareFunc(resumeHandler))
 
-	log.Printf("Server starting on port %d", port)
+	logger.Printf("Server starting on port %d", port)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
+		logger.Fatalf("Server failed to start: %v", err)
 	}
 }

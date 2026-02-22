@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -15,8 +14,6 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Extract the post name from the URL path (e.g., /blog/my-post -> "my-post")
 	postName := segments[len(segments)-1]
-
-	log.Printf("Blog request for post: %s", postName)
 
 	t := parseTemplates(w)
 	if t == nil {
@@ -32,6 +29,12 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := t.ExecuteTemplate(w, templateName, nil)
 	if err != nil {
+		if strings.Contains(err.Error(), "incomplete or empty template") || strings.Contains(err.Error(), "is not defined") {
+			logger.Printf("404: Blog template %s not found", templateName)
+			http.NotFound(w, r)
+			return
+		}
+		logger.Printf("Error executing blog template %s: %v", templateName, err)
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 	}
 }

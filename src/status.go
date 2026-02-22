@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"goservice/pkg/file"
 	"goservice/pkg/xml"
-	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -35,7 +34,7 @@ func getStatusContent() (string, error) {
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	mergedOutput, err := getStatusContent()
 	if err != nil {
-		log.Printf("Failed to get status content: %v", err)
+		logger.Printf("Failed to get status content: %v", err)
 		http.Error(w, "Failed to generate status page", http.StatusInternalServerError)
 		return
 	}
@@ -43,7 +42,7 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 	// Headers must be set before writing the response body
 	w.Header().Set("Content-Type", "text/html")
 	if _, err := w.Write([]byte(mergedOutput)); err != nil {
-		log.Printf("Failed to write response: %v", err)
+		logger.Printf("Failed to write response: %v", err)
 	}
 }
 
@@ -56,7 +55,7 @@ func ExecuteCmd(cmd string) string {
 
 	output, err := proc.CombinedOutput()
 	if err != nil {
-		log.Printf("Command execution failed: %v", err)
+		logger.Printf("Command execution failed: %v", err)
 	}
 
 	return string(output)
