@@ -28,6 +28,7 @@ func main() {
 	http.HandleFunc("/blog", middlewareFunc(blogHandler))
 	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Matches /blog/{post-name}
 	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
+	http.HandleFunc("/resume", middlewareFunc(resumeHandler))
 
 	log.Printf("Server starting on port %d", port)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {

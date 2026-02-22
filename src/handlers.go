@@ -76,3 +76,13 @@ func bookmarksHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Error executing template: %v", err), http.StatusInternalServerError)
 	}
 }
+
+// resumeHandler serves the resume PDF file.
+func resumeHandler(w http.ResponseWriter, r *http.Request) {
+	resumePath := os.Getenv("RESUME_PATH")
+	if resumePath == "" {
+		http.Error(w, "Resume path not configured", http.StatusInternalServerError)
+		return
+	}
+	http.ServeFile(w, r, resumePath)
+}
