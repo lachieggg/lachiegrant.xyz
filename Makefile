@@ -1,4 +1,4 @@
-.PHONY: help up down local-certs certbot test test-go test-cov test-js reload
+.PHONY: help up down local-certs certbot test test-go test-cov test-js reload logs bans
 .DEFAULT_GOAL := help
 
 up: build ## Build and start services in background
@@ -54,3 +54,9 @@ local-certs: ## Generate self-signed SSL certificates for local development
 
 help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+logs: ## View live tail of all Docker container logs
+	docker-compose logs -f
+
+bans: ## View the currently active Fail2Ban IP hitlist
+	docker exec -it fail2ban fail2ban-client status nginx-bot-ban
