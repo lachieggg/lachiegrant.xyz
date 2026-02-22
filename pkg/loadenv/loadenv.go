@@ -20,8 +20,12 @@ func LoadEnv(envPath string) error {
 	scanner := bufio.NewScanner(envFile)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if strings.HasPrefix(line, "#") || len(strings.TrimSpace(line)) == 0 {
-			// Skip comments and empty lines
+		if strings.HasPrefix(line, "#") {
+			// Skip comments
+			continue
+		}
+		if len(strings.TrimSpace(line)) == 0 {
+			// Skip empty lines
 			continue
 		}
 
@@ -30,7 +34,9 @@ func LoadEnv(envPath string) error {
 			return fmt.Errorf("invalid format in .env file: %s", line)
 		}
 
-		key, value := strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1])
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+
 		os.Setenv(key, value)
 	}
 

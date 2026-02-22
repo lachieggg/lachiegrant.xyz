@@ -15,6 +15,11 @@ import (
 func TestMain(m *testing.M) {
 	// Initialize logger to discard output during tests
 	logger = log.New(io.Discard, "", 0)
+
+	// go test runs natively inside the folder containing the tests (./src).
+	// We dynamically step back one directory so templates route logically to ./src/templates.
+	os.Chdir("..")
+
 	os.Exit(m.Run())
 }
 
@@ -22,12 +27,12 @@ func TestHandlers(t *testing.T) {
 	// Setup: Create a dummy public directory and file for resume tests
 	err := os.MkdirAll("public", 0755)
 	assert.NoError(t, err)
-	defer os.RemoveAll("public")
 
 	testResumeFile := "public/test-resume.pdf"
-	testContent := "test resume content"
+	testContent := "ok"
 	err = os.WriteFile(testResumeFile, []byte(testContent), 0644)
 	assert.NoError(t, err)
+	defer os.Remove(testResumeFile)
 
 	tests := []struct {
 		name           string
@@ -54,7 +59,7 @@ func TestHandlers(t *testing.T) {
 		},
 		{
 			name:           "Page: Not Found (Nested)",
-			url:            "/some/nested/path",
+			url:            "/nested/path",
 			handler:        indexHandler,
 			expectedStatus: http.StatusNotFound,
 		},
@@ -64,9 +69,9 @@ func TestHandlers(t *testing.T) {
 			name:           "Redirect: GitHub (Valid)",
 			url:            "/code",
 			handler:        githubHandler,
-			envVars:        map[string]string{EnvGithubURL: "https://github.com/example"},
+			envVars:        map[string]string{EnvGithubURL: "https://github.com/lachieggg"},
 			expectedStatus: http.StatusSeeOther,
-			expectedHeader: map[string]string{"Location": "https://github.com/example"},
+			expectedHeader: map[string]string{"Location": "https://github.com/lachieggg"},
 		},
 		{
 			name:           "Redirect: GitHub (Empty)",
@@ -154,11 +159,7 @@ func TestHandlers(t *testing.T) {
 
 			tt.handler(rec, req)
 
-			// Custom assertion for IndexHandler (it might return 500 if templates aren't found, which is fine)
-			if tt.handler == nil { // Placeholder for indexHandler logic in test if necessary
-			} else if tt.name == "Page: Home (Exists)" || tt.name == "Feature: Blog (Enabled)" || tt.name == "Feature: Bookmarks (Enabled)" {
-				assert.NotEqual(t, http.StatusNotFound, rec.Code)
-			} else {
+			if tt.handler != nil {
 				assert.Equal(t, tt.expectedStatus, rec.Code)
 			}
 

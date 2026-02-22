@@ -1,4 +1,4 @@
-.PHONY: help up down local-certs certbot test reload
+.PHONY: help up down local-certs certbot test test-go test-cov test-js reload
 .DEFAULT_GOAL := help
 
 up: build ## Build and start services in background
@@ -19,8 +19,29 @@ reload: ## Rebuild frontend and backend, then restart app
 	@docker-compose restart app > /dev/null 2>&1
 	@echo "Reloaded successfully."
 
-test: ## Run backend unit tests
+test: ## Run all tests
+	@echo "--- 🔧 Running Go Tests 🔧 ---"
+	@go test -v ./src/... && GO_OK=1 || GO_OK=0; \
+	echo "\n--- 🔧 Running JS Tests 🔧 ---"; \
+	npm test && JS_OK=1 || JS_OK=0; \
+	echo "-------------------------------"; \
+	echo "         TEST SUMMARY          "; \
+	echo "-------------------------------"; \
+	if [ $$GO_OK -eq 1 ]; then echo "✅ Go tests OK"; else echo "❌ Go tests failed 😵"; fi; \
+	if [ $$JS_OK -eq 1 ]; then echo "✅ JS tests OK"; else echo "❌ JS tests failed 😵"; fi; \
+	echo "-------------------------------"; \
+	if [ $$GO_OK -eq 0 ] || [ $$JS_OK -eq 0 ]; then exit 1; fi
+
+test-go: ## Run backend unit tests
 	go test -v ./src/...
+
+test-cov: ## Show backend coverage in browser
+	go test -coverprofile=coverage.out ./src/...
+	go tool cover -html=coverage.out -o coverage.html
+	open coverage.html || xdg-open coverage.html || start coverage.html
+
+test-js: ## Run frontend javascript tests
+	npm test
 
 certbot: ## Run certbot script for production SSL certificates
 	./scripts/certbot.sh

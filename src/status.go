@@ -10,7 +10,7 @@ import (
 )
 
 // nfHtmlPath is the path to the pre-generated neofetch HTML output.
-const nfHtmlPath = "./public/neofetch.html"
+var nfHtmlPath = "./public/neofetch.html"
 
 // getStatusContent generates status HTML by combining htop output with neofetch.
 // It executes htop, converts it to HTML via aha, and merges it with the neofetch HTML.

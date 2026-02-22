@@ -9,7 +9,7 @@ import (
 
 func TestLoadEnv(t *testing.T) {
 	// Create a temporary .env file for testing
-	envContent := []byte("TEST_VAR_1=value1\nTEST_VAR_2=value2\n# This is a comment\n")
+	envContent := []byte("VAR_1=value-1\nVAR_2=value-2\nVAR_3=value=3\n# This is a comment\n")
 	tmpfile, err := os.CreateTemp("", "testenv")
 	assert.NoError(t, err)
 	defer os.Remove(tmpfile.Name())
@@ -25,11 +25,14 @@ func TestLoadEnv(t *testing.T) {
 	assert.NoError(t, err)
 
 	// Test if the environment variables were set correctly
-	value1 := os.Getenv("TEST_VAR_1")
-	assert.Equal(t, "value1", value1)
+	value1 := os.Getenv("VAR_1")
+	assert.Equal(t, "value-1", value1)
 
-	value2 := os.Getenv("TEST_VAR_2")
-	assert.Equal(t, "value2", value2)
+	value2 := os.Getenv("VAR_2")
+	assert.Equal(t, "value-2", value2)
+
+	value3 := os.Getenv("VAR_3")
+	assert.Equal(t, "value=3", value3)
 
 	// Test if a comment was ignored
 	valueComment := os.Getenv("# This is a comment")

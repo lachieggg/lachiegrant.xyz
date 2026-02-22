@@ -1,52 +1,46 @@
-const URL = 'images/';
-const IMAGES = process.env.PICTURES ? process.env.PICTURES.split(',') : [];
-const HOME_ID = "home-img";
-const BLOG_ID = "blog-img";
-const BOOK_ID = "book-img";
-const HOME_BTN = "home-img-btn";
-
-// Set initial random images
-setPicture(HOME_ID, "");
-setPicture(BLOG_ID, "");
-setPicture(BOOK_ID, "");
-
-function setPicture(id, name) {
-    if (!name) {
-        name = getRandomImage();
-    }
-    if (!name) return;
-
-    const imageUrl = URL + name;
-    try {
-        const image = document.getElementById(id);
-        if (image) {
-            image.src = imageUrl;
-        }
-    } catch (err) {
-        console.warn("Could not set image for id:", id);
-    }
-}
+const URL = 'images/',
+    HOME_ID = 'home-img',
+    BLOG_ID = 'blog-img',
+    BOOK_ID = 'book-img',
+    HOME_BTN = 'home-img-btn',
+    IMAGES = process.env.PICTURES ? process.env.PICTURES.split(',') : [];
 
 function getRandomImage() {
-    if (IMAGES.length === 0) return "";
-    const randomIndex = Math.floor(Math.random() * IMAGES.length);
-    return IMAGES[randomIndex].trim();
+    if (!IMAGES.length) return '';
+    return IMAGES[Math.floor(Math.random() * IMAGES.length)].trim();
+}
+
+function setPicture(id, name) {
+    try {
+        const image = document.getElementById(id);
+        if (image) image.src = URL + name;
+    } catch (err) {
+        console.warn('Could not set image for id:', id);
+    }
 }
 
 function setRandomImage(id) {
-    const imageName = getRandomImage();
-    if (imageName) {
-        setPicture(id, imageName);
+    setPicture(id, getRandomImage());
+}
+
+if (IMAGES.length === 0) {
+    console.error('PICTURES environment is empty or missing');
+} else {
+    // Set initial random images
+    setRandomImage(HOME_ID);
+    setRandomImage(BLOG_ID);
+    setRandomImage(BOOK_ID);
+
+    const homeButton = document.getElementById(HOME_BTN);
+    if (homeButton) {
+        homeButton.addEventListener('click', () => setRandomImage(HOME_ID));
     }
 }
 
-function createRandomImageSetter(id) {
-    return function () {
-        setRandomImage(id)
-    }
-}
-
-const homeButton = document.getElementById(HOME_BTN);
-if (homeButton) {
-    homeButton.addEventListener('click', createRandomImageSetter(HOME_ID));
-}
+module.exports = {
+    getRandomImage,
+    setPicture,
+    setRandomImage,
+    URL,
+    IMAGES
+};
