@@ -68,6 +68,13 @@ http {
             try_files $uri =404;
         }
 
+        location ~* ^/(favicon\.(ico|png)|apple-touch-icon.*\.png)$ {
+            root /etc/nginx/html/public;
+            try_files $uri =404;
+            log_not_found off;
+            access_log off;
+        }
+
         location / {
             limit_req zone=general burst=10 nodelay;
             limit_conn addr 3;
@@ -144,10 +151,13 @@ http {
             try_files $uri =404;
         }
 
-        location = /favicon.ico {
-            alias /etc/nginx/html/public/favicon.ico;
+        location ~* ^/(favicon\.(ico|png)|apple-touch-icon.*\.png)$ {
+            root /etc/nginx/html/public;
+            try_files $uri =404;
             expires max;
             add_header Cache-Control "public, immutable";
+            log_not_found off;
+            access_log off;
         }
 
         location ~ ^/images/ {
@@ -157,13 +167,7 @@ http {
             add_header Cache-Control "public, no-transform";
         }
 
-        location ~* \.css$ {
-            root /etc/nginx/html/public;
-            expires 1y;
-            add_header Cache-Control "public";
-        }
-
-        location ~* \.js$ {
+        location ~* \.(css|js)$ {
             root /etc/nginx/html/public;
             expires 1y;
             add_header Cache-Control "public";

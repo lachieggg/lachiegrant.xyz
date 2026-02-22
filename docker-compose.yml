@@ -43,8 +43,10 @@ services:
       - NET_RAW
     volumes:
       - ./logs:/var/log/custom_logs:ro
-      - ./fail2ban/jail.d:/etc/fail2ban/jail.d:ro
-      - ./fail2ban/filter.d:/etc/fail2ban/filter.d:ro
+      - ./f2b/jail.d:/etc/fail2ban/jail.d:ro
+      - ./f2b/filter.d:/etc/fail2ban/filter.d:ro
+    environment:
+      - IPTABLES_MODE=legacy
     restart: unless-stopped
     depends_on:
       - nginx
