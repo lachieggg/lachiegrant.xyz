@@ -12,7 +12,6 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app
-      - /app/bin
 
   nginx:
     image: nginx

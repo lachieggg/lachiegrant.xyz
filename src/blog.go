@@ -38,8 +38,8 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := t.ExecuteTemplate(w, templateName, getPageData(nil))
 	if err != nil {
-		if strings.Contains(err.Error(), "incomplete or empty template") || strings.Contains(err.Error(), "is not defined") {
-			logger.Printf("404: Blog template %s not found", templateName)
+		if strings.Contains(err.Error(), "incomplete or empty template") || strings.Contains(err.Error(), "undefined") {
+			logger.Printf("404: Blog template %s not found (err: %s)", templateName, err.Error())
 			http.NotFound(w, r)
 			return
 		}

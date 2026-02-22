@@ -13,8 +13,11 @@ build: ## Install dependencies and build frontend
 
 reset: build down up ## Stop, rebuild, and restart services
 
-reload: build ## Rebuild frontend and restart app (fast .env reload)
-	docker-compose restart app
+reload: ## Rebuild frontend and backend, then restart app
+	@out=$$(npm run build 2>&1) || { echo "$$out"; exit 1; }
+	@docker exec app go build -o /server_bin/app ./src
+	@docker-compose restart app > /dev/null 2>&1
+	@echo "Reloaded successfully."
 
 test: ## Run backend unit tests
 	go test -v ./src/...

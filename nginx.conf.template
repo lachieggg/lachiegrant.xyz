@@ -71,6 +71,11 @@ http {
         ssl_stapling off;
         resolver 1.1.1.1 valid=300s;
 
+        error_page 404 /404.html;
+        location = /404.html {
+            root /etc/nginx/html/public;
+        }
+
         location = /robots.txt {
             root /etc/nginx/html/public;
             try_files $uri =404;
@@ -98,6 +103,7 @@ http {
         location / {
             limit_req zone=rate_limit_zone burst=2 nodelay;
             limit_conn addr 3;
+            proxy_intercept_errors on;
             proxy_pass http://app;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;

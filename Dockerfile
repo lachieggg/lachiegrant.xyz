@@ -6,6 +6,6 @@ RUN apk add --no-cache htop aha --repository=$ALPINE_REPO
 WORKDIR /app
 
 COPY . .
-RUN go build -o /app/bin/app ./src
+RUN go build -o /server_bin/app ./src
 
-CMD ["/app/bin/app"]
+CMD ["/server_bin/app"]
