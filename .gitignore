@@ -45,8 +45,5 @@ node_modules
 out
 diff
 
-# CV
-public/cv
-
 # Build output
 dist/
