@@ -60,3 +60,9 @@ logs: ## View live tail of all Docker container logs
 
 bans: ## View the currently active Fail2Ban IP hitlist
 	docker exec -it fail2ban fail2ban-client status nginx-bot-ban
+
+kill: ## Kill all running containers
+	docker kill $(docker ps -q)
+
+prune: ## Remove all unused Docker resources (hard reset)
+	docker system prune -af
