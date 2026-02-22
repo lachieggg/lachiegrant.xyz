@@ -11,6 +11,7 @@
 
 # Binary
 app
+bin/
 
 # Environment
 .env
