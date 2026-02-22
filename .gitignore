@@ -1,17 +1,10 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# Binary
+app
+bin/
 
 # Testing
 *.test
 *.out
-
-# Binary
-app
-bin/
 
 # Environment
 .env
@@ -48,3 +41,11 @@ diff
 
 # Build output
 dist/
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
