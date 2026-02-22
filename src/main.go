@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	port = 9000
+	port    = 9000
+	logPath = "log.out"
 )
 
 // main is the application entry point. It loads environment variables,
@@ -19,15 +20,14 @@ func main() {
 		log.Printf("Warning: could not load .env file: %v", err)
 	}
 
-	initLogger("log.out")
+	initLogger(logPath)
 
-	// Register HTTP routes with logging middleware
 	http.HandleFunc("/", middlewareFunc(indexHandler))
 	http.HandleFunc("/code", middlewareFunc(githubHandler))
 	http.HandleFunc("/blog", middlewareFunc(blogHandler))
-	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Matches /blog/{post-name}
 	http.HandleFunc("/bookmarks", middlewareFunc(bookmarksHandler))
 	http.HandleFunc("/resume", middlewareFunc(resumeHandler))
+	http.HandleFunc("/blog/", middlewareFunc(blogHandler)) // Matches /blog/{post-name}
 
 	logger.Printf("Server starting on port %d", port)
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {

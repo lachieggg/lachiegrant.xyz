@@ -1,4 +1,4 @@
-.PHONY: help up down local-certs certbot
+.PHONY: help up down local-certs certbot test
 .DEFAULT_GOAL := help
 
 up: build ## Build and start services in background
@@ -12,6 +12,9 @@ build: ## Install dependencies and build frontend
 	npm run build
 
 reset: build down up ## Stop, rebuild, and restart services
+
+test: ## Run backend unit tests
+	go test -v ./src/...
 
 certbot: ## Run certbot script for production SSL certificates
 	./scripts/certbot.sh

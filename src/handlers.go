@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // parseTemplates loads and parses all HTML templates from the templates directory.
@@ -87,10 +88,21 @@ func resumeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	absPath, err := filepath.Abs(resumePath)
+	wd, err := os.Getwd()
 	if err != nil {
-		logger.Printf("Error resolving resume path: %v", err)
-		http.Error(w, "Error resolving resume path", http.StatusInternalServerError)
+		logger.Printf("Error getting working directory: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	// Clean and resolve the absolute path
+	absPath := filepath.Join(wd, filepath.Clean(resumePath))
+	publicDir := filepath.Join(wd, "public")
+
+	// Security Check: Ensure the file is within the 'public' directory
+	if !strings.HasPrefix(absPath, publicDir) {
+		logger.Printf("Security Warning: Unauthorized access attempt to %s", absPath)
+		http.Error(w, "Forbidden", http.StatusForbidden)
 		return
 	}
 
