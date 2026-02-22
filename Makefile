@@ -4,11 +4,9 @@
 help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-build: ## Install dependencies and build frontend/backend
+build: ## Install dependencies and build frontend
 	npm install
 	npm run build
-	mkdir -p bin
-	go build -o bin/app ./src
 
 up: build ## Build and start services in background
 	BUILD_DATE=$$(date -u +'%Y-%m-%dT%H:%M:%SZ') docker-compose up --build -d
