@@ -15,14 +15,17 @@ http {
         server app:9000;
     }
 
-    # HTTP to HTTPS redirection
+    # Default server to catch unhandled HTTP requests
+    server {
+        listen 80 default_server;
+        server_name _;
+        return 444;
+    }
+
+    # HTTP to HTTPS redirection for allowed hosts
     server {
         listen 80;
-        server_name lachiegrant.xyz www.lachiegrant.xyz;
-
-        if ($host !~* ^(lachiegrant\.xyz|www\.lachiegrant\.xyz)$) {
-            return 444;
-        }
+        server_name ${ALLOWED_HOSTS};
 
         location /.well-known/pki-validation/ {
             root /etc/nginx/html/public;
@@ -41,14 +44,21 @@ http {
         }
     }
 
-    # HTTPS server configuration
+    # Default server to catch unhandled HTTPS requests
+    server {
+        listen 443 ssl default_server;
+        server_name _;
+        
+        ssl_certificate     /app/tls/nginx/certs/fullchain.pem;
+        ssl_certificate_key /app/tls/nginx/keys/privkey.pem;
+        
+        return 444;
+    }
+
+    # HTTPS server configuration for allowed hosts
     server {
         listen 443 ssl;
-        server_name lachiegrant.xyz www.lachiegrant.xyz;
-
-        if ($host !~* ^(lachiegrant\.xyz|www\.lachiegrant\.xyz)$) {
-            return 444;
-        }
+        server_name ${ALLOWED_HOSTS};
 
         # SSL settings
         ssl_certificate     /app/tls/nginx/certs/fullchain.pem;

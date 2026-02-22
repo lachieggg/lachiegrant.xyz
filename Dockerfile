@@ -1,9 +1,7 @@
 FROM golang:1.26-alpine
+ARG ALPINE_REPO
 
-# BUILD_DATE used here to invalidate cache for
-# subsequent layers when it changes.
-ARG BUILD_DATE
-RUN echo "Build Date: $BUILD_DATE" > /dev/null
+RUN apk add --no-cache htop aha --repository=$ALPINE_REPO
 
 WORKDIR /app
 
