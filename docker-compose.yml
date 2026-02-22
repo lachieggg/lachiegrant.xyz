@@ -23,14 +23,31 @@ services:
     environment:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS:-lachiegrant.xyz www.lachiegrant.xyz}
     volumes:
-      - ./nginx.conf.template:/etc/nginx/nginx.conf.template:ro
+      - ./nginx/nginx.conf.template:/etc/nginx/nginx.conf.template:ro
+      - ./nginx/bots.conf:/etc/nginx/bots.conf:ro
       - ./public:/etc/nginx/html/public
       - ./tls:/app/tls
+      - ./logs:/var/log/custom_logs
     command: /bin/sh -c "envsubst '$$ALLOWED_HOSTS' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
     depends_on:
       - app
     networks:
       - net
+
+  fail2ban:
+    image: crazymax/fail2ban:latest
+    container_name: fail2ban
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./logs:/var/log/custom_logs:ro
+      - ./fail2ban/jail.d:/etc/fail2ban/jail.d:ro
+      - ./fail2ban/filter.d:/etc/fail2ban/filter.d:ro
+    restart: unless-stopped
+    depends_on:
+      - nginx
 
 networks:
   net:

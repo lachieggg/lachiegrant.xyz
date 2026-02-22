@@ -6,6 +6,18 @@ http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
 
+    # Gzip Compression
+    gzip on;
+    gzip_disable "msie6";
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+    gzip_min_length 256;
+
+    # Bot Blocker Map
+    include /etc/nginx/bots.conf;
+
+    # Dedicated access log for fail2ban to parse without breaking docker stdout
+    access_log /var/log/custom_logs/access.log combined;
+
     # Rate limiting and connection limiting
     limit_req_zone $binary_remote_addr zone=rate_limit_zone:10m rate=2r/s;
     limit_conn_zone $binary_remote_addr zone=addr:10m;
@@ -71,6 +83,16 @@ http {
         ssl_stapling off;
         resolver 1.1.1.1 valid=300s;
 
+        # Block explicitly bad bots
+        if ($bad_bot) {
+            return 444;
+        }
+
+        # Instantly drop malicious probes
+        location ~* (\.php$|\.env$|\.git) {
+            return 444;
+        }
+
         error_page 404 /404.html;
         location = /404.html {
             root /etc/nginx/html/public;
@@ -83,21 +105,29 @@ http {
 
         location = /favicon.ico {
             alias /etc/nginx/html/public/favicon.ico;
+            expires max;
+            add_header Cache-Control "public, immutable";
         }
 
         location ~ ^/images/ {
             root /etc/nginx/html/public;
             try_files $uri =404;
+            expires 1y;
+            add_header Cache-Control "public, no-transform";
         }
 
         location ~* \.css$ {
             root /etc/nginx/html/public;
             add_header Content-Type "text/css";
+            expires 1y;
+            add_header Cache-Control "public";
         }
 
         location ~* \.js$ {
             root /etc/nginx/html/public;
             add_header Content-Type "application/javascript";
+            expires 1y;
+            add_header Cache-Control "public";
         }
 
         location / {
