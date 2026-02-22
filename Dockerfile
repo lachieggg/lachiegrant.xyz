@@ -1,14 +1,12 @@
 FROM golang:1.26-alpine
 
 ARG BUILD_DATE
-COPY .ignore .
-
-RUN echo "$BUILD_DATE" > .ignore
+# BUILD_DATE is used here to invalidate cache for subsequent layers when it changes.
+RUN echo "Build Date: $BUILD_DATE" > /dev/null
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN apk update
-RUN apk add procps htop aha
+COPY . .
+RUN go build -o /app/bin/app ./src
 
-CMD ["./scripts/start.sh"]
+CMD ["/app/bin/app"]
