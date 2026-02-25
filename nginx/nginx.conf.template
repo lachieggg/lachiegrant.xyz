@@ -17,6 +17,8 @@ http {
 
     # Dedicated access log for fail2ban to parse without breaking docker stdout
     access_log /var/log/custom_logs/access.log combined;
+    # Log to console for docker logs
+    access_log /dev/stdout combined;
 
     # ── Rate limiting ─────────────────────────────────────────────────────────────
     limit_req_zone $binary_remote_addr zone=general:10m rate=30r/m;

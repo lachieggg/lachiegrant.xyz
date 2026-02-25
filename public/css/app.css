@@ -67,6 +67,12 @@ body {
   }
 }
 
+.rpi-img,
+.gentoo-img {
+  max-height: 20px;
+  max-width: 20px;
+}
+
 .logo-img {
   max-height: 20px;
   max-width: 20px;
