@@ -1,7 +1,10 @@
 import os
 from pypdf import PdfWriter, PdfReader
 
-reader = PdfReader("2026-cv.pdf")
+ext = ".pdf"
+fname = "2026-cv"
+
+reader = PdfReader(fname + ext)
 writer = PdfWriter()
 
 for page in reader.pages:
@@ -9,9 +12,7 @@ for page in reader.pages:
 
 writer.add_metadata({"/Title": "Resume"})
 
-with open("2026-cv-out.pdf", "wb") as f:
+with open(fname + "-out" + ext, "wb") as f:
     writer.write(f)
 
-print("Done! Saved as 2026-cv-out.pdf")
-
-
+print("Done! Saved as " + fname + "-out" + ext)
