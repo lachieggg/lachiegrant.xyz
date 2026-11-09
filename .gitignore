@@ -1,0 +1,34 @@
+# Binary
+app
+bin/
+
+# Environment
+.env
+
+# Mac OS
+.DS_Store
+
+# Log & Test files
+*.log
+*.test
+*.out
+coverage.html
+coverage.out 
+
+# Generated
+**/generated/*.js
+
+# Node
+node_modules
+package-lock.json
+
+# Diffs
+out
+diff
+
+# Build output
+dist/
+
+# Content-hashed CSS published at startup by publishVersionedCSS()
+# (src/assets.go) - generated from public/css/app.css, never hand-edited.
+public/css/app.*.css

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Applied before first paint to avoid a flash of the wrong theme.
+        // Three possible stored values: 'light', 'dark', 'cells' (the third
+        // cycle preset - see src/js/home.js for the full cycle and
+        // src/vanta_themes.go for why it's called "cells" generically even
+        // though the actual effect is swappable server-side). No stored
+        // value yet -> leave the animated hero exactly as the server
+        // rendered it (today's visitors keep seeing today's default) and
+        // only fall back to system dark-mode preference for the page
+        // chrome underneath it.
+        (function () {
+            try {
+                var stored = localStorage.getItem('theme');
+                if (stored === 'light') {
+                    window.__SUPPRESS_VANTA__ = true;
+                    return;
+                }
+                if (stored === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    window.__SUPPRESS_VANTA__ = true;
+                    return;
+                }
+                if (stored === 'cells') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    return;
+                }
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+    {{ if .FaviconHref }}<link rel="icon" type="image/svg+xml" href="{{ .FaviconHref }}">
+    <link rel="alternate icon" href="/favicon.ico">{{ else }}<link rel="icon" href="/favicon.ico">{{ end }}
+    <link rel="stylesheet" href="/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="{{ .CSSPath }}">
+    <title>Lachie Grant</title>
+</head>
+
+<body class="index-body">
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false"></button>
+    {{ if eq .HeroMode "animated" }}
+    <!-- Canvas mount only - fixed full-viewport, see .vanta-fixed-bg in
+         public/css/app.css. Site-wide (not home-page-only) so the
+         theme-cycle toggle's "cells" state (src/js/home.js) works
+         consistently from any page - see scripts.html for the init script
+         that actually starts it. -->
+    <div id="vanta-bg" class="vanta-fixed-bg" aria-hidden="true"></div>
+    {{ end }}
+    {{ template "navigation.html" $ }}

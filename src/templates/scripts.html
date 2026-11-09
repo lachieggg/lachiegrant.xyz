@@ -1,0 +1,50 @@
+{{ if eq .HeroMode "animated" }}
+<!-- Sci-fi/nature-tech background: {{ .VantaName }} (Vanta.js, MIT licensed).
+     Swap effect via VANTA_THEME, or turn it off entirely via HERO_MODE=static -
+     see src/vanta_themes.go. Site-wide (mount point is in header.html).
+
+     window.__vantaInit/__vantaDestroy are exposed rather than calling
+     VANTA.{{ .VantaInitFunc }}(...) directly so the theme-cycle toggle
+     (src/js/home.js) can start/stop the effect on demand as one of its
+     three states, without a page reload. Auto-starts on load unless the
+     blocking inline script in header.html has already decided the stored
+     preference is explicitly 'light' or 'dark' (window.__SUPPRESS_VANTA__). -->
+<script src="{{ .VantaEngineURL }}"></script>
+<script src="{{ .VantaEffectURL }}"></script>
+<script>
+    (function () {
+        window.__vantaInit = function () {
+            if (typeof VANTA === 'undefined' || !document.getElementById('vanta-bg')) return null;
+            if (window.__vantaEffect) return window.__vantaEffect;
+            try {
+                window.__vantaEffect = VANTA.{{ .VantaInitFunc }}({{ .VantaParamsJSON }});
+            } catch (e) {
+                // Some browsers (e.g. Brave, via its WebGL fingerprinting
+                // protection - "farbling") refuse to create a WebGL
+                // context at all. That's a deliberate privacy feature, not
+                // a bug to route around - fail closed here so the caller
+                // (src/js/home.js) can degrade the theme cycle to plain
+                // light/dark instead of leaving an uncaught error and a
+                // stuck toggle.
+                console.warn('Vanta failed to start (WebGL unavailable):', e);
+                window.__vantaEffect = null;
+                window.__vantaBroken = true;
+            }
+            return window.__vantaEffect;
+        };
+        window.__vantaDestroy = function () {
+            if (window.__vantaEffect && typeof window.__vantaEffect.destroy === 'function') {
+                window.__vantaEffect.destroy();
+            }
+            window.__vantaEffect = null;
+        };
+        if (!window.__SUPPRESS_VANTA__) {
+            window.__vantaInit();
+        }
+    })();
+</script>
+{{ end }}
+<script type="module" src="{{ .HomeJSPath }}"></script>
+</body>
+
+</html>

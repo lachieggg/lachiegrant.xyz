@@ -1,0 +1,10 @@
+*
+!.gitignore
+!src/
+!pkg/
+!go.mod
+!go.sum
+!scripts/
+!public/
+!templates/
+!.env

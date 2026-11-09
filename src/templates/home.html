@@ -1,0 +1,28 @@
+{{ template "header.html" . }}
+
+{{ if eq .HeroMode "animated" }}
+<div class="vanta-hero">
+    <div class="container main-content vanta-hero__content">
+        <div class="text-center">
+            {{ with .Data }}
+            <img id="home-img" class="home-img img-fluid" src="{{ .HomeImage }}" alt="Home Image"
+                fetchpriority="high">
+            {{ end }}
+        </div>
+    </div>
+</div>
+{{ else }}
+<div class="container main-content">
+    <div class="text-center">
+        {{ with .Data }}
+        <img id="home-img" class="home-img img-fluid" src="{{ .HomeImage }}" alt="Home Image">
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+
+<div class="container">
+    {{ template "footer.html" . }}
+</div>
+
+{{ template "scripts.html" . }}

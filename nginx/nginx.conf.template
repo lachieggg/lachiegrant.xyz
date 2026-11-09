@@ -1,0 +1,151 @@
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    # Default (32) is too small for long hostnames - nginx fails to start
+    # with "could not build server_names_hash" otherwise.
+    server_names_hash_bucket_size 64;
+
+    # Gzip Compression
+    gzip on;
+    gzip_disable "msie6";
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+    gzip_min_length 256;
+
+    # Bot Blocker Map
+    include /etc/nginx/bots.conf;
+
+    # ── Restore real visitor IP from Cloudflare ─────────────────────────────────────
+    set_real_ip_from 127.0.0.1;
+    # The shared Caddy edge proxy on the VPS (docker network 'edge') - it sets
+    # CF-Connecting-IP to the real client address (see /opt/edge/Caddyfile).
+    set_real_ip_from 172.30.0.0/24;
+    real_ip_header CF-Connecting-IP;
+
+    # Dedicated access log for fail2ban to parse without breaking docker stdout
+    access_log /var/log/custom_logs/access.log combined;
+    # Log to console for docker logs
+    access_log /dev/stdout combined;
+
+    # ── Rate limiting ─────────────────────────────────────────────────────────────
+    limit_req_zone $binary_remote_addr zone=general:10m rate=30r/m;
+    limit_req_status 429;
+    limit_conn_zone $binary_remote_addr zone=addr:10m;
+
+    # ── Bad user agents (Additional list) ─────────────────────────────────────────
+    map $http_user_agent $bad_agent {
+        default                     0;
+        ~*masscan                   1;
+        ~*nikto                     1;
+        ~*sqlmap                    1;
+        ~*nmap                      1;
+        ~*zgrab                     1;
+        ~*nuclei                    1;
+        ~*dirbuster                 1;
+        ~*gobuster                  1;
+        ~*wfuzz                     1;
+        ~*python-requests           1;
+        ~*go-http-client            1;
+        ~*libwww-perl               1;
+        ""                          1;  # empty user agent
+    }
+
+    # Define upstream servers
+    upstream app {
+        server app:9000;
+    }
+
+    # Default server to catch unhandled HTTP requests
+    server {
+        listen 80 default_server;
+        server_name _;
+        return 444;
+    }
+
+    # HTTP server configuration for allowed hosts
+    # TLS is terminated at Cloudflare's edge; this only ever receives traffic
+    # from the cloudflared tunnel over local loopback, so no TLS needed here.
+    server {
+        listen 80;
+        server_name ${ALLOWED_HOSTS};
+
+        # Security Headers
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+
+        # ── Block HTTP methods you don't use ──────────────────────────────────────
+        if ($request_method !~ ^(GET|POST|PUT|PATCH|DELETE|OPTIONS|HEAD)$) {
+            return 444;
+        }
+
+        # ── Block bad agents ──────────────────────────────────────────────────────
+        if ($bad_bot) {
+            return 444;
+        }
+        if ($bad_agent) {
+            return 444;
+        }
+
+        # ── Exploit/CMS probes ────────────────────────────────────────────────────
+        location ~* (\.php$|\.env$|\.git|wp-admin|wp-includes|wp-login|xmlrpc|\.well-known/(?!acme-challenge|pki-validation)|setup\.cgi|shell\.php|eval-stdin|phpmyadmin|pma|myadmin|mysql|adminer|\.aspx?$|\.jsp$|/cgi-bin/|/cgi/) {
+            return 444;
+        }
+
+        # ── Backup & config file probes ───────────────────────────────────────────
+        location ~* \.(bak|backup|old|orig|save|swp|tmp|sql|db|sqlite|dump|tar|tar\.gz|tgz|zip|rar|7z|log|logs|pem|key|crt|cert|p12|pfx|cfg|conf|config|ini|yaml|yml|toml|DS_Store)$ {
+            return 444;
+        }
+
+        # ── Common scanner paths ──────────────────────────────────────────────────
+        location ~* (/actuator|/\.aws|/\.azure|/config\.json|/config\.js|/package\.json|/composer\.|/Dockerfile|/docker-compose|/\.htaccess|/\.htpasswd|/server-status|/server-info|/telescope|/horizon|/__debugbar|/_profiler|/vendor/|/node_modules/) {
+            return 444;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html {
+            root /etc/nginx/html/public;
+        }
+
+        location = /robots.txt {
+            root /etc/nginx/html/public;
+            try_files $uri =404;
+        }
+
+        location ~* ^/(favicon\.(ico|png)|apple-touch-icon.*\.png)$ {
+            root /etc/nginx/html/public;
+            try_files $uri =404;
+            expires max;
+            add_header Cache-Control "public, immutable";
+            log_not_found off;
+            access_log off;
+        }
+
+        location ~ ^/images/ {
+            root /etc/nginx/html/public;
+            try_files $uri =404;
+            expires 1y;
+            add_header Cache-Control "public, no-transform";
+        }
+
+        location ~* \.(css|js)$ {
+            root /etc/nginx/html/public;
+            expires 1y;
+            add_header Cache-Control "public";
+        }
+
+        location / {
+            limit_req zone=general burst=10 nodelay;
+            limit_conn addr 3;
+            # No proxy_intercept_errors: the app renders its own themed 404 page.
+            proxy_pass http://app;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+        }
+    }
+}

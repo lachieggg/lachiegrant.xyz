@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        /* Fallback for files nginx itself can't find (missing images/css/js);
+           real pages get the full themed 404 from the app. Follows the
+           visitor's light/dark preference. */
+        :root { --bg: lightblue; --text: #111; --muted: #333; }
+        @media (prefers-color-scheme: dark) { :root { --bg: #0d1f1a; --text: #d8f3e8; --muted: #8fb8a8; } }
+        body { font-family: 'Courier New', Courier, monospace; text-align: center; margin: 0; padding-top: 120px; background: var(--bg); color: var(--text); }
+        p { color: var(--muted); }
+        a { color: inherit; }
+    </style>
+</head>
+
+<body>
+    <h1>404</h1>
+    <p>The page you are looking for does not exist.</p>
+    <p><a href="/">return home</a></p>
+</body>
+
+</html>
